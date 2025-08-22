@@ -5,6 +5,9 @@ const ejs = require('ejs')
 const app = express();
 
 app.use(express.static('public'));
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
+
 app.set("view engine","ejs");
 
 app.get('/', (req,res) => {
@@ -16,9 +19,10 @@ app.get('/about', (req,res) => {
 app.get('/addPhoto', (req,res) => {
     res.render('addPhoto');
 });
-
-
-
+app.post('/photos', (req,res) => {
+    console.log(req.body);
+    res.redirect("/");
+});
 
 
 
