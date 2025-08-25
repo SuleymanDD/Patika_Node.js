@@ -1,7 +1,8 @@
-
 const express = require('express');
+const fileUpload = require("express-fileupload");
 const path = require('path');
 const ejs = require('ejs');
+const fs = require("fs");
 const Photo = require("./models/Photo");
 const mongoose = require("mongoose");
 
@@ -13,12 +14,13 @@ mongoose.connect("mongodb://localhost/pcat-test-db");
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+app.use(fileUpload());
 
 // Template Engine
 app.set("view engine","ejs");
 
 app.get('/', async (req,res) => {
-    const photos =  await Photo.find({});
+    const photos =  await Photo.find({}).sort("-dateCreated");
     res.render('index', {
         photos
     });
@@ -35,9 +37,24 @@ app.get('/about', (req,res) => {
 app.get('/addPhoto', (req,res) => {
     res.render('addPhoto');
 });
+
 app.post('/photos', async (req,res) => {
-    await Photo.create(req.body);
-    res.redirect("/");
+
+    const uploadDir = "public/uploads/";
+    if(!fs.existsSync(uploadDir)){
+        fs.mkdirSync(uploadDir);
+    }       
+
+    let uploadImage=req.files.image;
+    let uploadPath=__dirname+"/public/uploads/"+uploadImage.name;
+
+    uploadImage.mv(uploadPath, async () => {
+        await Photo.create({
+            ...req.body,
+            image: "/uploads/" + uploadImage.name
+        });
+        res.redirect("/")
+    });
 });
 
 
