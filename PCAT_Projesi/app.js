@@ -6,9 +6,18 @@ const methodOverride = require('method-override');
 const photoController = require("./controllers/photoController");
 const pageController = require("./controllers/pageController");
 
-const app = express();
+require('dotenv').config();
+const dbKey = process.env.DB_KEY;
 
-mongoose.connect("mongodb://localhost/pcat-test-db");
+const app = express();
+const connectionPath =`mongodb+srv://sdemirel:${dbKey}@cluster0.q3pwia4.mongodb.net/pcat-db?retryWrites=true&w=majority&appName=Cluster0`;
+
+mongoose.connect(connectionPath)
+.then(()=> {
+    console.log("DB Connected");
+}).catch((err) => {
+    console.log(err);
+})
 
 // MiddleWears
 app.use(express.static('public'));
@@ -33,7 +42,7 @@ app.get('/addPhoto', pageController.getAddPhotoPage);
 app.get("/photos/edit/:id", pageController.getEditPage);
 
 
-const port = 3000;
+const port = process.env.PORT || 5000;
 app.listen(port, () => {
     console.log(`Sunucu ${port} numaralı portta başlatıldı..`);
 });
