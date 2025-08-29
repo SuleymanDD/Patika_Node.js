@@ -6,12 +6,10 @@ const methodOverride = require('method-override');
 const photoController = require("./controllers/photoController");
 const pageController = require("./controllers/pageController");
 
-require('dotenv').config();
-const dbKey = process.env.DB_KEY;
-
 const app = express();
-const connectionPath =`mongodb+srv://sdemirel:${dbKey}@cluster0.q3pwia4.mongodb.net/pcat-db?retryWrites=true&w=majority&appName=Cluster0`;
 
+// connectionPath should be secret url. You can create this url from MongoDB Atlas.
+const connectionPath = "mongodb://localhost/pcat-test-db"
 mongoose.connect(connectionPath)
 .then(()=> {
     console.log("DB Connected");
