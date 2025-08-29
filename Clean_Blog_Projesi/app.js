@@ -8,7 +8,14 @@ const postController = require("./controllers/postController");
 
 const app = express();
 
-mongoose.connect("mongodb://localhost/cleanblog-test-db");
+// connectionPath should be secret url. You can create this url from MongoDB Atlas.
+const connectionPath = "mongodb://localhost/cleanblog-test-db"
+mongoose.connect(connectionPath)
+.then(()=> {
+    console.log("DB Connected");
+}).catch((err) => {
+    console.log(err);
+});
 
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
