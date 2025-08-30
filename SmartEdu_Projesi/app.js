@@ -12,6 +12,8 @@ app.set("view engine","ejs");
 
 // Middlewares
 app.use(express.static("public"));
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
 
 // Routes
 app.use("/",pageRoute);
@@ -19,5 +21,5 @@ app.use("/courses",courseRoute);
 
 const PORT=3000;
 app.listen(PORT, () => {
-    console.log(`${PORT} Numarali portta sunucu calisiyor.`)
+    console.log(`${PORT} Numarali portta sunucu calisiyor.`);
 });
