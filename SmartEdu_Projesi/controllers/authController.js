@@ -24,12 +24,15 @@ exports.loginUser = async (req, res) => {
                 if (same) {
                     req.session.userID = user._id;
                     res.status(200).redirect("/users/dashboard");
+                }else{
+                    res.send("SIFRE HATALI");
                 }
             });
+        }else{
+            res.send("MAIL YOK");
         }
 
     } catch (error) {
-        console.log(error)
         res.status(400).json({
             status: "fail",
             error
@@ -41,7 +44,7 @@ exports.logoutUser = async (req,res) => {
     res.redirect("/");
 }
 exports.getDashboardPage = async (req,res) => {
-    const user = await User.findOne({_id:req.session.userID});
+    const user = await User.findOne({_id:req.session.userID}).populate("courses");
     const categories = await Category.find();
     const courses = await Course.find({user:req.session.userID});
     res.render("dashboard", {
