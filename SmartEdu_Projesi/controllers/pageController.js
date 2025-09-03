@@ -1,3 +1,4 @@
+const nodemailer = require("nodemailer");
 exports.getIndexPage = (req, res) => {
     res.render("index", {
         page_name: "index"
@@ -17,4 +18,46 @@ exports.getLoginPage = (req, res) => {
     res.render("login", {
         page_name: "login"
     });
+};
+exports.getContactPage = (req, res) => {
+    res.render("contact", {
+        page_name: "contact"
+    });
+};
+exports.sendEmail = (req, res) => {
+
+    console.log("Mail Sended!");
+    /*const outputMessage = `
+    <h1>Mail Details </h1>
+    <ul>
+        <li>Name: ${req.body.name}</li>
+        <li>Email: ${req.body.email}</li>
+    </ul>
+    <h1>Message</h1>
+    <p>${req.body.message}</p>
+    `
+    
+    const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+            user: "**@gmail.com",
+            pass: "**",
+        },
+    });
+
+    // Wrap in an async IIFE so we can use await.
+    (async () => {
+        const info = await transporter.sendMail({
+            from: '"SmartEdu" <**@gmail.com>',
+            to: "***@gmail.com",
+            subject: "SmartEdu Message ✔",
+            html: outputMessage, // HTML body
+        });
+
+        console.log("Message sent:", info.messageId);
+    })();
+    */
+    res.status(200).redirect("contact");
 };
