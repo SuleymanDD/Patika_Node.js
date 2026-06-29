@@ -5,29 +5,29 @@ const mongoose = require("mongoose");
 const methodOverride = require('method-override');
 const photoController = require("./controllers/photoController");
 const pageController = require("./controllers/pageController");
-
+const dotenv  = require("dotenv");
+dotenv.config();
 const app = express();
 
-// connectionPath should be secret url. You can create this url from MongoDB Atlas.
-const connectionPath = "mongodb://localhost/pcat-test-db"
+const connectionPath = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.7350ikv.mongodb.net/?appName=Cluster0`;
 mongoose.connect(connectionPath)
-.then(()=> {
-    console.log("DB Connected");
-}).catch((err) => {
-    console.log(err);
-})
+    .then(() => {
+        console.log("DB Connected");
+    }).catch((err) => {
+        console.log(err);
+    })
 
 // MiddleWears
 app.use(express.static('public'));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(fileUpload());
-app.use(methodOverride('_method',{
-    methods:["POST", "GET"]
+app.use(methodOverride('_method', {
+    methods: ["POST", "GET"]
 }));
 
 // Template Engine
-app.set("view engine","ejs");
+app.set("view engine", "ejs");
 
 app.get('/', photoController.getAllPhotos);
 app.get("/photos/:id", photoController.getPhoto);
