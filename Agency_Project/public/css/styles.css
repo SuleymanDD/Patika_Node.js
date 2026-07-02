@@ -8096,6 +8096,9 @@ textarea.form-control-lg {
 
 .text-uppercase {
   text-transform: uppercase !important;
+  word-wrap: break-word;      
+  overflow-wrap: break-word;  
+  max-width: 100%;
 }
 
 .text-capitalize {
@@ -11107,6 +11110,9 @@ header.masthead .masthead-heading {
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
   margin-bottom: 0;
+  white-space: nowrap;      
+  overflow: hidden;         
+  text-overflow: ellipsis;  
 }
 #portfolio .portfolio-item .portfolio-caption .portfolio-caption-subheading {
   font-style: italic;

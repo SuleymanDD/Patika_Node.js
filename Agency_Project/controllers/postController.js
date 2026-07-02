@@ -12,8 +12,8 @@ exports.getAllPosts = async (req, res) => {
 
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
-        const showedPosts = posts.slice(startIndex,endIndex);
-        
+        const showedPosts = posts.slice(startIndex, endIndex);
+
         res.render("index", { posts: showedPosts, currentPage: page, totalPages });
     } catch (error) {
         console.error("Veri çekme hatası:", error);
@@ -24,6 +24,10 @@ exports.getAllPosts = async (req, res) => {
 
 exports.createPost = async (req, res) => {
     await Post.create(req.body);
-    console.log("Data oluşturuldu...")
     res.redirect("/");
+}
+
+exports.updatePost = async (req, res) => {
+    const post = await Post.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    res.redirect("/#portfolio");
 }

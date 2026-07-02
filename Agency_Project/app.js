@@ -32,8 +32,10 @@ app.set("view engine", "ejs");
 
 app.get("/", postController.getAllPosts);
 app.post("/posts", postController.createPost);
+app.put("/posts/:id", postController.updatePost);
 
 app.get("/addPost", pageController.getAddPost);
+app.get("/post/edit/:id",pageController.getEditPost);
 
 
 
