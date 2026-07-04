@@ -21,15 +21,22 @@ exports.createPost = async(req, res) => {
     if(!fs.existsSync(uploadsDir)){
         fs.mkdirSync(uploadsDir);
     }
+    try{
+        if(!req.files || !req.files.image) {
+            return res.status(400).send("No file uploaded.");
+        }
+        let uploadImage = req.files.image;
+        let uploadPath = __dirname+"/../public/uploads/"+uploadImage.name;
 
-    let uploadImage = req.files.image;
-    let uploadPath = __dirname+"/../public/uploads/"+uploadImage.name;
-
-    uploadImage.mv(uploadPath, async () => {
-        await Post.create({
-            ...req.body,
-            img: "/uploads/"+uploadImage.name
+        uploadImage.mv(uploadPath, async () => {
+            await Post.create({
+                ...req.body,
+                img: "/uploads/"+uploadImage.name
+            });
+            res.redirect("/");
         });
-        res.redirect("/");
-    })
+    } catch(err) {
+        console.log(err);
+    }
+    
 }
