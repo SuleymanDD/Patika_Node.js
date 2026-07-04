@@ -8101,6 +8101,19 @@ textarea.form-control-lg {
   max-width: 100%;
 }
 
+/* Ekle Butonu için özel stil */
+.add-btn {
+    background: #10b981 !important; /* Yeşil bir ton */
+    color: white !important;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.add-btn:hover {
+    background: #059669 !important;
+    transform: scale(1.1);
+}
+
 .text-capitalize {
   text-transform: capitalize !important;
 }

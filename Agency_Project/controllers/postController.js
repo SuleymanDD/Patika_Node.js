@@ -28,6 +28,11 @@ exports.createPost = async (req, res) => {
 }
 
 exports.updatePost = async (req, res) => {
-    const post = await Post.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    const post = await Post.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect("/#portfolio");
+}
+
+exports.deletePost = async (req, res) => {
+    const deletedPost = await Post.findByIdAndDelete(req.params.id);
     res.redirect("/#portfolio");
 }

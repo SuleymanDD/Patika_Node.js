@@ -87,6 +87,7 @@
                                         <li class="<%= currentPage == 1 ? 'disabled-link' : '' %>"><a class="leftArrow"
                                                 href="/?page=<%= currentPage > 1 ? currentPage - 1 : 1 %>">&laquo;</a>
                                         </li>
+                                        <li><a href="/addPost" class="add-btn">+</a></li>
                                         <li class="<%= currentPage == totalPages ? 'disabled-link' : '' %>"><a
                                                 class="rightArrow"
                                                 href="/?page=<%= currentPage < totalPages ? currentPage + 1 : totalPages %>">&raquo;</a>
@@ -375,7 +376,7 @@
                                             </ul>
                                             <div class="action-buttons">
                                                 <a href="/post/edit/<%= posts[i]._id.toString() %>" class="btn-action edit-btn">Düzenle</a>
-                                                <a href="#" class="btn-action delete-btn"
+                                                <a href="/posts/<%= posts[i]._id.toString()%>?_method=DELETE" class="btn-action delete-btn"
                                                     onclick="return confirm('Bu içeriği silmek istediğinize emin misiniz?');">
                                                     Sil
                                                 </a>
