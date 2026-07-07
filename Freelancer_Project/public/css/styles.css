@@ -717,6 +717,49 @@ progress {
   height: auto;
 }
 
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Butonlar arası boşluk */
+    margin-bottom: 20px;
+}
+
+.btn-action {
+    padding: 10px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+/* Düzenle Butonu (Mavi tonlarında) */
+.edit-btn {
+    background-color: #3b82f6;
+    color: white;
+}
+
+/* Sil Butonu (Kırmızı tonlarında) */
+.delete-btn {
+    background-color: #ef4444;
+    color: white;
+}
+
+/* Mevcut butonunuz için ufak bir dokunuş */
+.btn-close-project {
+    width: 100%;
+    padding: 15px;
+    background: #ffc107; /* Sarı renginiz */
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .figure {
   display: inline-block;
 }

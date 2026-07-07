@@ -22,16 +22,19 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(fileUpload());
-/*app.use(methodOverride('_method'), {
+app.use(methodOverride('_method', {
     methods: ["POST", "GET"]
-});*/
+}));
 
 app.set("view engine", "ejs");
 
 app.get("/", postController.getAllPosts);
 app.post("/posts", postController.createPost);
+app.put("/posts/:id", postController.updatePost);
+app.delete("/post/:id", postController.deletePost);
 
 app.get("/addPost", pageController.getAddPage);
+app.get("/post/edit/:id", pageController.getEditPage);
 
 
 app.listen(process.env.PORT || 5000, () => {
