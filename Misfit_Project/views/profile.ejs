@@ -4,20 +4,21 @@
         <%- include('partials/_navbar') %>
 
             
-
             <div class="dashboard-container">
                 <h2>Eğitimlerim</h2>
                 <div class="education-grid">
-                    <div class="education-card">
-                        <img src="/images/tra0.jpg" alt="Eğitim Görseli">
+                    <% for(let i=0; i<courses.length; i++){ %>
+                        <div class="education-card">
+                        <img src="<%= courses[i].image %>" alt="Eğitim Görseli">
                         <div class="card-content">
-                            <h3>We22222222222b Geliştirme 10222222221</h3>
-                            <p>Modern web teknolojileri hakkında kapsamlı başlangıç eğitimi.</p>
+                            <h3><%= courses[i].title %></h3>
+                            <p><%= courses[i].shortdesc %></p>
                             <a href="#parentalEducationModal" class="btn"
                                 onclick="openModal()">Eğitime
                                 Git</a>
                         </div>
-                    </div>
+                        </div>
+                    <% } %>
                 </div>
             </div>
 

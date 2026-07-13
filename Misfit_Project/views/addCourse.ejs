@@ -1,0 +1,53 @@
+<%- include("partials/_header") %>
+
+    <body>
+        <%- include("partials/_navbar") %>
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6">
+                        <div class="card shadow-sm border-0" style="background-color: #a8d3fd; padding: 30px; border-radius: 10px;">
+                            <div class="card-body p-4">
+                                <h2 class="card-title text-center mb-4">Yeni Kurs Oluştur</h2>
+
+                                <form action="/courses" method="POST">
+                                    <div class="mb-3">
+                                        <label for="title" class="form-label">Kurs Başlığı</label>
+                                        <input type="text" class="form-control" id="title" name="title"
+                                            placeholder="Örn: İleri Seviye React" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="shortDesc" class="form-label">Kısa Açıklama</label>
+                                        <input type="text" class="form-control" id="shortDesc" name="shortDesc"
+                                            placeholder="Kullanıcıları cezbedecek kısa bir özet" maxlength="150"
+                                            required>
+                                        <small class="text-muted">En fazla 150 karakter.</small>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Detaylı Açıklama</label>
+                                        <textarea class="form-control" id="description" name="description" rows="5"
+                                            placeholder="Kursun içeriği hakkında detaylı bilgi verin..."
+                                            required></textarea>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="image" class="form-label">Görsel URL</label>
+                                        <input type="url" class="form-control" id="image" name="image"
+                                            placeholder="https://ornek.com/resim.jpg" required>
+                                        <small class="text-muted">Görselinizin doğrudan bağlantı adresini girin.</small>
+                                    </div>
+
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary btn-lg">Kursu Kaydet</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include("partials/_footer") %>
+    </body>
+
+    </html>

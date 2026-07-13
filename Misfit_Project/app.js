@@ -8,6 +8,7 @@ const session = require('express-session');
 
 const pageController = require("./controllers/pageController");
 const authController = require("./controllers/authController");
+const profileController = require("./controllers/profileController");
 
 const app = express();
 dotenv.config();
@@ -29,20 +30,18 @@ mongoose.connect(process.env.MONGODB_URI).then(() => { console.log("Db Connected
 
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-    res.render("index", { pageName: "home", userId: req.session.userId });  
-});
-
 app.post("/user/signup", authController.signup);
 app.post("/user/login", authController.login);
+app.get("/profile", profileController.getAllCourses);
 
+app.get("/", pageController.getMainPage);
 app.get("/about", pageController.getAboutPage);
 app.get("/contact", pageController.getContactPage);
 app.get("/gallery", pageController.getGalleryPage);
 app.get("/trainer", pageController.getTrainerPage);
 app.get("/signup", pageController.getSignupPage);
 app.get("/login", pageController.getLoginPage);
-app.get("/profile", pageController.getProfilePage);
+app.get("/addCourse", pageController.getAddCoursePage);
 
 app.listen(process.env.PORT || 4000, () => {
     console.log("Sunucu başlatılıyor... http://localhost:4000");
