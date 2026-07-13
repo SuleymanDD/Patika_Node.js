@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kayıt Ol | Misfit Fitness</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .signup-container {
+            background-color: #00274A;
+            padding: 40px;
+            border-radius: 15px;
+            /* Köşeleri biraz daha yuvarladık */
+            border: 1px solid #333;
+            /* Hafif bir kenarlık derinlik katar */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .h2cs {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background-color: #15324b;
+            color: white;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff4b2b;
+            /* Odaklandığında belirginleşir */
+            outline: none;
+        }
+
+        .submitBtn {
+            width: 100%;
+            padding: 15px;
+            background-color: #0a2236;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .submitBtn:hover {
+            background-color: #e04024;
+            transform: translateY(-2px);
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #a0a0a0;
+        }
+
+        a {
+            color: #ff4b2b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .form-select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+
+            background-color: #00274A;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px 15px;
+            width: 100%;
+            cursor: pointer;
+            font-size: 16px;
+            color: #ffffff;
+            margin-bottom: 20px;
+
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 12px;
+        }
+
+        .form-select:focus {
+            border-color: #ff4b2b;
+            outline: none;
+        }
+    </style>
+    <%- include('partials/_header') %>
+</head>
+<%- include('partials/_navbar') %>
+
+    <body>
+        <p style="display: flex; justify-content: center; background-color: #0a2236; color: #ffffff;">
+            <%= message %>
+        </p>
+        <div
+            style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #c5c5c5; color: #ffffff;">
+            <div class="signup-container">
+                <h2 class="h2cs">Üye Ol</h2>
+                <form action="/user/signup" method="POST">
+                    <div class="input-group">
+                        <label for="name">Ad Soyad</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="age">Yaş</label>
+                        <input type="number" id="age" name="age" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="from">Nereden</label>
+                        <input type="text" id="from" name="from" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Şifre</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div>
+                        <label for="role">Kullanıcı Rolü</label>
+                        <select class="form-select" id="role" name="role" required>
+                            <option value="" disabled selected>Rolünüzü seçin</option>
+                            <option value="student">Öğrenci</option>
+                            <option value="trainer">Antrenör</option>
+                        </select>
+                    </div>
+                    <button class="submitBtn" type="submit">Kayıt Ol</button>
+                </form>
+                <div class="footer-text">
+                    Zaten hesabın var mı? <a href="/login">Giriş Yap</a>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+    <%- include('partials/_footer') %>
+
+</html>

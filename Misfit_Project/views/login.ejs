@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Yap | Misfit Fitness</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .signup-container {
+            background-color: #00274A;
+            padding: 40px;
+            border-radius: 15px;
+            /* Köşeleri biraz daha yuvarladık */
+            border: 1px solid #333;
+            /* Hafif bir kenarlık derinlik katar */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .h2cs {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #a0a0a0;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background-color: #15324b;
+            color: white;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff4b2b;
+            /* Odaklandığında belirginleşir */
+            outline: none;
+        }
+
+        .submitBtn {
+            width: 200px;
+            padding: 15px;
+            background-color: #0a2236;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .submitBtn:hover {
+            background-color: #e04024;
+            transform: translateY(-2px);
+        }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #a0a0a0;
+        }
+
+        a {
+            color: #ff4b2b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+    <%- include('partials/_header') %>
+</head>
+<%- include('partials/_navbar') %>
+
+    <body>
+        <p style="display: flex; justify-content: center; background-color: #0a2236; color: #ffffff;"><%= message %></p>
+        <div
+            style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #c5c5c5; color: #ffffff;">
+            <div class="signup-container">
+                <h2 class="h2cs">Giriş Yap</h2>
+                <form action="/user/login" method="POST">
+                    <div class="input-group">
+                        <label for="name">Ad Soyad</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Şifre</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div style="display: flex; align-items: center; justify-content: center;"><button class="submitBtn" type="submit">Giriş Yap</button></div>
+                </form>
+                <div class="footer-text">
+                    Hesabın yok mu? <a href="/signup">Kayıt Ol</a>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+    <%- include('partials/_footer') %>
+
+</html>
