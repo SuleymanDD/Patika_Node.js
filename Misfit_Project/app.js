@@ -9,6 +9,7 @@ const session = require('express-session');
 const pageController = require("./controllers/pageController");
 const authController = require("./controllers/authController");
 const profileController = require("./controllers/profileController");
+const courseController = require("./controllers/courseController");
 
 const app = express();
 dotenv.config();
@@ -32,7 +33,10 @@ app.set("view engine", "ejs");
 
 app.post("/user/signup", authController.signup);
 app.post("/user/login", authController.login);
+app.get("/logout", authController.logout);
+
 app.get("/profile", profileController.getAllCourses);
+app.post("/courses", courseController.createCourse);
 
 app.get("/", pageController.getMainPage);
 app.get("/about", pageController.getAboutPage);

@@ -7,15 +7,18 @@ exports.getAllCourses = async(req, res)=>{
         res.status(400).redirect("/login");
     }else{ // İf there is a user
         let courses;
-        const user= await User.find({_id: req.session.userId});
+        const user= await User.findOne({_id: req.session.userId});
         switch(user.role){
             case "student":
-                courses = await Course.find({_id: {$in: user.courses}})
+                courses = await Course.find({_id: {$in: user.courses}});
             break;
             case "trainer":
-                courses = await Course.find({_id: req.session.userId});
+                courses = await Course.find({user: req.session.userId});
+            break;
+            default:
+                courses = [];
             break;
         }
-        res.render("profile", { pageName: "profile", courses,userId: req.session.userId });
+        res.render("profile", { pageName: "profile", courses, userId: req.session.userId, userRole: req.session.userRole });
     }
 }

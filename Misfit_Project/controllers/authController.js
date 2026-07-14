@@ -36,6 +36,7 @@ exports.login = async (req, res) => {
             bcrypt.compare(password, user.password, (err, same) => {
                 if (same) {
                     req.session.userId = user._id;
+                    req.session.userRole = user.role;
                     res.redirect("/");
                 } else {
                     req.flash("loginErr", "Kullanıcı ismi veya şifre yanlış tekrar deneyin!!");
@@ -52,4 +53,18 @@ exports.login = async (req, res) => {
             error
         });
     }
-}   
+} 
+
+exports.logout= async(req,res) => {
+    req.session.destroy((err) => {
+        if(err){
+            console.error("Session silinirken hata oluştu:", err);
+            return res.status(500).send("Çıkış yapılamadı.");
+        }
+
+        // 'connect.sid', express-session'ın varsayılan çerez ismidir
+        res.clearCookie('connect.sid');
+
+        res.redirect('/');
+    })
+}
