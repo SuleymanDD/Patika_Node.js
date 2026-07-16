@@ -1,0 +1,72 @@
+<%- include('partials/_header') %>
+
+    <style>
+        .form-control:focus {
+            border-color: #007BFF !important;
+            outline: none;
+        }
+
+        /* Güvenlik bölümü başlık çizgisi */
+        .security-divider {
+            border-top: 2px dashed #dee2e6;
+        }
+    </style>
+
+    <body>
+        <%- include('partials/_navbar') %>
+
+            <div class="container mt-5" style="max-width: 500px;">
+                <div class="card shadow-lg border-0 rounded-4 p-4">
+                    <div class="card-body p-0">
+                        <h4 class="mb-4 fw-bold text-dark">Hesap Bilgilerini Güncelle</h4>
+
+                        <form action="/update/user?_method=PUT" method="POST">
+
+                            <div class="form-floating mb-3">
+                                <label for="name" class="text-muted">Ad Soyad</label>
+                                <input type="text" name="name" class="form-control" id="name"
+                                    placeholder="Ad Soyad" value="<%= user.name %>" required>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <label for="age" class="text-muted">Yaşınız</label>
+                                <input type="number" name="age" class="form-control" id="age" placeholder="Yaş" value="<%= user.age %>" required>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <label for="from" class="text-muted">Yaşadığınız Şehir</label>
+                                <select name="from" class="form-control" id="from" aria-label="Şehir seçimi" required>
+                                    <option value="<%= user.from %>" disabled selected><%= user.from %></option>
+                                    <option value="istanbul">İstanbul</option>
+                                    <option value="ankara">Ankara</option>
+                                    <option value="izmir">İzmir</option>
+                                    <option value="diger">Diğer</option>
+                                </select>
+                            </div>
+
+                            <div class="security-divider my-4"></div>
+
+                            <div class="form-floating mb-3">
+                                <label for="newPassword" class="text-muted">Yeni Şifre</label>
+                                <input type="password" name="newPassword" class="form-control" id="newPassword"
+                                    placeholder="Yeni Şifre">
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <label for="confirmPassword" class="text-muted">Yeni Şifre (Tekrar)</label>
+                                <input type="password" name="confirmPassword" class="form-control" id="confirmPassword"
+                                    placeholder="Yeni Şifre (Tekrar)">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-semibold">
+                                Bilgileri Kaydet
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <%- include('partials/_footer') %>
+    </body>
+
+    </html>

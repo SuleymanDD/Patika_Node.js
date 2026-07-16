@@ -52,7 +52,7 @@
                <div class="col-md-6">
                   <div class="map_main">
                      <div class="map-responsive">
-                        <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&amp;q=Eiffel+Tower+Paris+France" width="600" height="425" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
+                        <iframe id="mapFrame" src="" width="600" height="425" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
                      </div>
                   </div>
                </div>
@@ -64,4 +64,14 @@
       <%- include("partials/_footer") -%>
 
    </body>
+   <script>
+      // 1. EJS üzerinden anahtarı al
+      const apiKey = "<%= process.env.MAP_API_KEY %>";
+
+      // 2. URL'yi oluştur
+      const mapUrl = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=Eiffel+Tower,Paris,France`;
+
+      // 3. Iframe'in src özelliğini güncelle
+      document.getElementById('mapFrame').src = mapUrl;
+   </script>
 </html>

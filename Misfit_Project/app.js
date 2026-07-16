@@ -18,9 +18,9 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(flash());
-/*app.use(methodOverride(_method, {
+app.use(methodOverride("_method", {
     methods: ["POST", "GET"]
-}));*/
+}));
 app.use(session({
   secret: 'gizli_AHah', // İstediğiniz gizli bir kelimeyi yazın
   resave: false,
@@ -34,6 +34,7 @@ app.set("view engine", "ejs");
 app.post("/user/signup", authController.signup);
 app.post("/user/login", authController.login);
 app.get("/logout", authController.logout);
+app.put("/update/user", authController.editUser);
 
 app.get("/profile", profileController.getAllCourses);
 app.post("/courses", courseController.createCourse);
@@ -46,6 +47,7 @@ app.get("/trainer", pageController.getTrainerPage);
 app.get("/signup", pageController.getSignupPage);
 app.get("/login", pageController.getLoginPage);
 app.get("/addCourse", pageController.getAddCoursePage);
+app.get("/edit/user", pageController.getEditUserPage);
 
 app.listen(process.env.PORT || 4000, () => {
     console.log("Sunucu başlatılıyor... http://localhost:4000");

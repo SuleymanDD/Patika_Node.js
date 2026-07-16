@@ -53,11 +53,11 @@ exports.login = async (req, res) => {
             error
         });
     }
-} 
+}
 
-exports.logout= async(req,res) => {
+exports.logout = async (req, res) => {
     req.session.destroy((err) => {
-        if(err){
+        if (err) {
             console.error("Session silinirken hata oluştu:", err);
             return res.status(500).send("Çıkış yapılamadı.");
         }
@@ -67,4 +67,48 @@ exports.logout= async(req,res) => {
 
         res.redirect('/');
     })
+}
+
+exports.editUser = async (req, res) => {
+    try {
+        console.log("gelen veri", req.body)
+        const beforeUser = await User.findOne({ _id: req.session.userId });
+        let password = beforeUser.password;
+
+        if (beforeUser.name !== req.body.name) {
+            const isNameUnique = await User.find({ name: req.body.name });
+            if (isNameUnique.length > 0) { //İf name doesn't unique
+                req.flash("editUserErr", "Başka bir isim girin!!");
+                return res.status(400).redirect("/editUser");
+            }
+        }
+
+        if (req.body.newPassword !== req.body.confirmPassword) {
+            req.flash("editUserErr", "Şifreler eşleşmiyor!!");
+            return res.status(400).redirect("/editUser");
+        }
+
+        if (req.body.newPassword.length > 0 && req.body.newPassword === req.body.confirmPassword) {
+            password = req.body.newPassword;
+            bcrypt.genSalt(10, function (err, salt) {
+                if (err) console.log(err)
+                bcrypt.hash(password, salt, async (error, hash) => {
+                    if (error) console.log(error)
+                    password = hash.toString();
+                });
+            });
+        }
+
+        await User.findByIdAndUpdate(req.session.userId, {
+            ...req.body,
+            password
+        });
+
+        res.status(200).redirect("/profile");
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            error
+        });
+    }
 }

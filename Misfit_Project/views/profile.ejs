@@ -50,7 +50,7 @@
                                     <p>
                                         <%= courses[i].shortdesc %>
                                     </p>
-                                    <a href="#parentalEducationModal" class="btn" onclick="openModal()">Eğitime
+                                    <a href="#course-<%= courses[i]._id %>" class="btn" onclick="openModal('course-<%= courses[i]._id %>')">Eğitime
                                         Git</a>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                 <div class="container mt-4">
                     <div class="row g-3">
                         <div class="col-md-4">
-                            <a href="/profile/edit"
+                            <a href="/edit/user"
                                 class="text-decoration-none p-3 rounded-4 d-flex flex-column align-items-center text-center bg-light border h-100 transition-all"
                                 style="transition: all 0.3s ease;">
                                 <div class="p-3 mb-2" style="font-size: 32px;">👤</div>
@@ -127,46 +127,39 @@
                 </div>
             </div>
             </div>
-
-            <div id="parentalEducationModal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <% for(let i=0; i<courses.length; i++){ %>
+            <div id="course-<%= courses[i]._id %>" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-content" id="modalFocusArea" tabindex="0">
-                    <h2 id="modalTitle">Eğitim Başlığı</h2>
-                    <div class="close-btn"><a href="#" onclick="closeModal()"
+                    <h2 id="modalTitle"><%= courses[i].title %></h2>
+                    <div class="close-btn"><a href="#" onclick="closeModal('course-<%= courses[i]._id %>')"
                             style="width: 100%; height: 100%;">&times;</a></div>
-                    <img id="modalImage" src="/images/tra0.jpg" alt="Eğitim Görseli"
+                    <img id="modalImage" src="<%= courses[i].image %>" alt="Eğitim Görseli"
                         style="width:100%; border-radius:8px;">
-                    <p id="modalDescription">Eğitim detayı burada görünecek.</p>
+                    <p id="modalDescription"><%= courses[i].descripiton %></p>
                     <button href="#" id="modalLink" class="btn">Derse Başla</button>
                 </div>
             </div>
+            <% } %>
 
             <%- include('partials/_footer') %>
     </body>
 
     <script>
-        function openModal() {
-            const modal = document.getElementById("parentalEducationModal");
+        function openModal(modalName) {
+            const modal = document.getElementById(modalName);
             const focusArea = document.getElementById("modalFocusArea");
 
-            // Modalı göster ve body'yi kilitle
             modal.style.display = "flex";
             document.body.classList.add("modal-open");
 
-            // Fokus'u modal içeriğine ver
             focusArea.focus();
         }
 
-        function closeModal() {
-            const modal = document.getElementById("parentalEducationModal");
+        function closeModal(modalName) {
+            const modal = document.getElementById(modalName);
             modal.style.display = "none";
             document.body.classList.remove("modal-open");
         }
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === "Escape") {
-                closeModal(); // ESC tuşuna basınca kapat
-            }
-        });
     </script>
 
     </html>
