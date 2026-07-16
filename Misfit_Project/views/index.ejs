@@ -9,9 +9,11 @@
       <!-- end loader -->
       <%- include("partials/_navbar") -%>
          <!-- banner -->
+         <% if (message.length > 0) { %>
          <p style="display: flex; justify-content: center; background-color: #0a2236; color: #ffffff;">
             <%= message %>
          </p>
+         <% } %>
          <section class="banner_main">
             <div id="myCarousel" class="carousel slide banner" data-ride="carousel">
                <ol class="carousel-indicators">

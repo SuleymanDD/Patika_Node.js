@@ -55,7 +55,7 @@ exports.getEditUserPage = async (req, res) => {
     try {
         if (req.session.userId) {
             const user = await User.findOne({ _id: req.session.userId });
-            res.render("editUser", { pageName: "editUser", user, userId: req.session.userId });
+            res.render("editUser", { pageName: "editUser", user, userId: req.session.userId, message: req.flash("editUserErr") });
         }else{
             req.flash("loginErr", "Hesap bilgilerini güncellemek için giriş yapın!!");
             res.status(400).redirect("/login");

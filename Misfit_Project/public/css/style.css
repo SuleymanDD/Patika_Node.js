@@ -262,7 +262,7 @@ button {
 }
 
 .navigation.navbar-dark .navbar-nav .nav-link {
-     padding: 7px 0px 29px 0px;
+     padding: 7px 0px 34px 0px;
      margin: 0 22px;
      color: #202020;
      font-size: 16px;
@@ -298,7 +298,7 @@ button {
      background-repeat: no-repeat;
      background-size: 100% 100%;
      background-position: center;
-     border-top: #00274a solid 5px;
+     border: none;
 }
 
 

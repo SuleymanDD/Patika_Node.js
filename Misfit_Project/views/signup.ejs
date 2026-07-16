@@ -116,9 +116,11 @@
 <%- include('partials/_navbar') %>
 
     <body style="background-color: #c5c5c5;">
-        <p style="display: flex; justify-content: center; background-color: #0a2236; color: #ffffff;">
+        <% if (message.length > 0) { %>
+         <p style="display: flex; justify-content: center; background-color: #0a2236; color: #ffffff;">
             <%= message %>
-        </p>
+         </p>
+         <% } %>
         <div
             style="display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: #ffffff;">
             <div class="signup-container">
@@ -136,10 +138,10 @@
                         <label for="from">Şehir</label>
                         <select name="from" class="form-select" id="from" name="from" required >
                             <option value="" disabled selected>Şehir seçiniz</option>
-                            <option value="istanbul">İstanbul</option>
-                            <option value="ankara">Ankara</option>
-                            <option value="izmir">İzmir</option>
-                            <option value="diger">Diğer</option>
+                            <option value="İstanbul">İstanbul</option>
+                            <option value="Ankara">Ankara</option>
+                            <option value="İzmir">İzmir</option>
+                            <option value="Diğer">Diğer</option>
                         </select>
                     </div>
                     <div class="input-group">

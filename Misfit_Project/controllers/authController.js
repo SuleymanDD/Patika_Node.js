@@ -71,7 +71,6 @@ exports.logout = async (req, res) => {
 
 exports.editUser = async (req, res) => {
     try {
-        console.log("gelen veri", req.body)
         const beforeUser = await User.findOne({ _id: req.session.userId });
         let password = beforeUser.password;
 

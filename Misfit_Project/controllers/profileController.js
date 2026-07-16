@@ -19,6 +19,6 @@ exports.getAllCourses = async(req, res)=>{
                 courses = [];
             break;
         }
-        res.render("profile", { pageName: "profile", courses, userId: req.session.userId, userRole: req.session.userRole });
+        res.render("profile", { pageName: "profile", user, courses, userId: req.session.userId, userRole: req.session.userRole });
     }
 }
