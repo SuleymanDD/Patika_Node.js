@@ -10,10 +10,10 @@ exports.getAllCourses = async(req, res)=>{
         const user= await User.findOne({_id: req.session.userId});
         switch(user.role){
             case "student":
-                courses = await Course.find({_id: {$in: user.courses}});
+                courses = await Course.find({_id: {$in: user.courses}}).sort({dateCreated: -1});
             break;
             case "trainer":
-                courses = await Course.find({user: req.session.userId});
+                courses = await Course.find({user: req.session.userId}).sort({dateCreated: -1});
             break;
             default:
                 courses = [];

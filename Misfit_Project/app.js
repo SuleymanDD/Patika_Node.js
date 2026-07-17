@@ -35,6 +35,7 @@ app.post("/user/signup", authController.signup);
 app.post("/user/login", authController.login);
 app.get("/logout", authController.logout);
 app.put("/update/user", authController.editUser);
+app.delete("/delete/user", authController.deleteUser);
 
 app.get("/profile", profileController.getAllCourses);
 app.post("/courses", courseController.createCourse);

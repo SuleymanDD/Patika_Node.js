@@ -26,21 +26,23 @@
 
                                 <form action="/update/user?_method=PUT" method="POST">
 
+                                    <!-- Ad Soyad (Önce Input, Sonra Label) -->
                                     <div class="form-floating mb-3">
-                                        <label for="name" class="text-muted">Ad Soyad</label>
                                         <input type="text" name="name" class="form-control" id="name"
                                             placeholder="Ad Soyad" value="<%= user.name %>" required>
+                                        <label for="name" class="text-muted">Ad Soyad</label>
                                     </div>
 
-                                    <div class="form-floating mb-4">
-                                        <label for="age" class="text-muted">Yaşınız</label>
+                                    <!-- Yaş (Önce Input, Sonra Label) -->
+                                    <div class="form-floating mb-3">
                                         <input type="number" name="age" class="form-control" id="age" placeholder="Yaş"
                                             value="<%= user.age %>" required>
+                                        <label for="age" class="text-muted">Yaşınız</label>
                                     </div>
 
-                                    <div class="form-floating mb-3">
-                                        <label for="from" class="text-muted">Yaşadığınız Şehir</label>
-                                        <select name="from" class="form-control" id="from" aria-label="Şehir seçimi"
+                                    <!-- Yaşadığınız Şehir (form-select yapıldı, Önce Select, Sonra Label) -->
+                                    <div class="form-floating mb-4">
+                                        <select name="from" class="form-select" id="from" aria-label="Şehir seçimi"
                                             required>
                                             <option value="<%= user.from %>" disabled selected>
                                                 <%= user.from %>
@@ -50,20 +52,23 @@
                                             <option value="İzmir">İzmir</option>
                                             <option value="Diğer">Diğer</option>
                                         </select>
+                                        <label for="from" class="text-muted">Yaşadığınız Şehir</label>
                                     </div>
 
                                     <div class="security-divider my-4"></div>
 
+                                    <!-- Yeni Şifre -->
                                     <div class="form-floating mb-3">
-                                        <label for="newPassword" class="text-muted">Yeni Şifre</label>
                                         <input type="password" name="newPassword" class="form-control" id="newPassword"
                                             placeholder="Yeni Şifre">
+                                        <label for="newPassword" class="text-muted">Yeni Şifre</label>
                                     </div>
 
+                                    <!-- Yeni Şifre Tekrar -->
                                     <div class="form-floating mb-4">
-                                        <label for="confirmPassword" class="text-muted">Yeni Şifre (Tekrar)</label>
                                         <input type="password" name="confirmPassword" class="form-control"
                                             id="confirmPassword" placeholder="Yeni Şifre (Tekrar)">
+                                        <label for="confirmPassword" class="text-muted">Yeni Şifre (Tekrar)</label>
                                     </div>
 
                                     <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-semibold">

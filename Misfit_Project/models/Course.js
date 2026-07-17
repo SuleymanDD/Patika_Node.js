@@ -11,7 +11,7 @@ const CourseSchema = new Schema({
         type: String,
         required: true
     },
-    descripiton: {
+    description: {
         type: String,
         required: true
     },
