@@ -239,11 +239,21 @@
                             <!-- 3. Sabit Buton Alanı -->
                             <div
                                 class="modal-header border-0 pt-2 px-4 pb-4 d-flex gap-3 justify-content-end flex-shrink-0">
-                                <button type="button"
-                                    class="btn btn-primary px-5 py-2.5 rounded-3 fw-semibold shadow-sm"
-                                    onclick="window.location.href='/courses/<%= courses[i]._id %>'">
-                                    🚀 Derse Başla
-                                </button>
+                                <% if(userRole==="trainer" ) { %>
+                                    <!-- Dersi Sil Butonu (Kırmızı / Tehlike Rengi) -->
+                                    <button type="button"
+                                        class="btn btn-danger px-4 py-2.5 rounded-3 fw-semibold shadow-sm"
+                                        onclick="if(confirm('Bu dersi silmek istediğinize emin misiniz?')) window.location.href='/courses/delete/<%= courses[i]._id %>'">
+                                        🗑️ Sil
+                                    </button>
+
+                                    <!-- Dersi Düzenle Butonu (Turuncu / Uyarı Rengi) -->
+                                    <button type="button"
+                                        class="btn btn-warning px-4 py-2.5 rounded-3 fw-semibold shadow-sm text-dark"
+                                        onclick="window.location.href='/courses/edit/<%= courses[i]._id %>'">
+                                        ✏️ Düzenle
+                                    </button>
+                                <% } %>
                             </div>
 
                         </div>
