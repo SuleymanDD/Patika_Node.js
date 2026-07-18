@@ -7,21 +7,21 @@
         <!-- Kart yapısı modern soft gölge ve oval köşelerle güncellendi -->
         <div class="card shadow-lg border-0 rounded-4 p-4 bg-white">
             <div class="card-body p-0">
-                <h3 class="mb-4 fw-bold text-dark">✨ Yeni Kurs Oluştur</h3>
+                <h3 class="mb-4 fw-bold text-dark">✍️Kurs İçeriğini Değiştir</h3>
 
-                <form action="/courses" method="POST">
+                <form action="/courses/<%= course._id %>?_method=PUT" method="POST">
                     
                     <!-- Kurs Başlığı -->
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control" id="title" name="title"
-                            placeholder="Örn: İleri Seviye React" required>
+                            placeholder="Örn: İleri Seviye React" value="<%= course.title %>" required>
                         <label for="title" class="text-muted">Kurs Başlığı</label>
                     </div>
 
                     <!-- Kısa Açıklama -->
                     <div class="form-floating mb-1">
                         <input type="text" class="form-control" id="shortdesc" name="shortdesc"
-                            placeholder="Kullanıcıları cezbedecek kısa bir özet" maxlength="150" required>
+                            placeholder="Kullanıcıları cezbedecek kısa bir özet" maxlength="150" value="<%= course.shortdesc %>" required>
                         <label for="shortdesc" class="text-muted">Kısa Açıklama</label>
                     </div>
                     <div class="mb-3 px-1">
@@ -31,14 +31,14 @@
                     <!-- Detaylı Açıklama -->
                     <div class="form-floating mb-3">
                         <textarea class="form-control" id="description" name="description" 
-                            placeholder="Kursun içeriği hakkında detaylı bilgi verin..." style="height: 130px" required></textarea>
+                            placeholder="Kursun içeriği hakkında detaylı bilgi verin..." style="height: 130px" required><%= course.description %></textarea>
                         <label for="description" class="text-muted">Detaylı Açıklama</label>
                     </div>
 
                     <!-- Görsel URL -->
                     <div class="form-floating mb-1">
                         <input type="url" class="form-control" id="image" name="image"
-                            placeholder="https://ornek.com/resim.jpg" required>
+                            placeholder="https://ornek.com/resim.jpg" value="<%= course.image %>" required>
                         <label for="image" class="text-muted">Görsel URL</label>
                     </div>
                     <div class="mb-4 px-1">

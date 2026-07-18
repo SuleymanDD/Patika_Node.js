@@ -8,7 +8,6 @@ const session = require('express-session');
 
 const pageController = require("./controllers/pageController");
 const authController = require("./controllers/authController");
-const profileController = require("./controllers/profileController");
 const courseController = require("./controllers/courseController");
 
 const app = express();
@@ -37,8 +36,10 @@ app.get("/logout", authController.logout);
 app.put("/update/user", authController.editUser);
 app.delete("/delete/user", authController.deleteUser);
 
-app.get("/profile", profileController.getAllCourses);
+app.get("/profile", courseController.getAllCourses);
 app.post("/courses", courseController.createCourse);
+app.put("/courses/:id", courseController.updateCourse);
+app.delete("/courses/:id", courseController.deleteCourse);
 
 app.get("/", pageController.getMainPage);
 app.get("/about", pageController.getAboutPage);
@@ -49,6 +50,7 @@ app.get("/signup", pageController.getSignupPage);
 app.get("/login", pageController.getLoginPage);
 app.get("/addCourse", pageController.getAddCoursePage);
 app.get("/edit/user", pageController.getEditUserPage);
+app.get("/edit/course/:id", pageController.getEditCoursePage);
 
 app.listen(process.env.PORT || 4000, () => {
     console.log("Sunucu başlatılıyor... http://localhost:4000");

@@ -171,31 +171,36 @@
                     <div class="container mt-4">
                         <div class="row g-3">
                             <div class="col-md-4">
-                                <a href="/edit/user"
-                                    class="text-decoration-none p-3 rounded-4 d-flex flex-column align-items-center text-center bg-light border h-100 transition-all"
-                                    style="transition: all 0.3s ease;">
+                                <button type="button"
+                                    class="w-100 p-3 rounded-4 d-flex flex-column align-items-center text-center bg-light border h-100 transition-all"
+                                    style="transition: all 0.3s ease;"
+                                    onclick="window.location.href='/edit/user'">
                                     <div class="p-3 mb-2" style="font-size: 32px;">👤</div>
                                     <span class="fw-semibold text-dark">Bilgileri Düzenle</span>
                                 </a>
                             </div>
 
                             <div class="col-md-4">
-                                <a href="/logout"
-                                    class="text-decoration-none p-3 rounded-4 d-flex flex-column align-items-center text-center bg-light border h-100 transition-all"
-                                    style="transition: all 0.3s ease;">
+                                <button type="button"
+                                    class="w-100 p-3 rounded-4 d-flex flex-column align-items-center text-center bg-light border h-100 transition-all"
+                                    style="transition: all 0.3s ease;"
+                                    onclick="window.location.href='/logout'">
                                     <div class="p-3 mb-2" style="font-size: 32px;">🚪</div>
                                     <span class="fw-semibold text-dark">Oturumu Kapat</span>
                                 </a>
                             </div>
 
                             <div class="col-md-4">
-                                <a href="/delete/user?_method=DELETE"
-                                    class="text-decoration-none p-3 rounded-4 d-flex flex-column align-items-center text-center border border-danger border-opacity-25 h-100 transition-all"
-                                    style="background-color: #fff5f5; transition: all 0.3s ease;"
-                                    onclick="confirm('⚠️ Hesabın silinecek. Emin misin?')">
+                                <!-- Tamamen button etiketine dönüştürüldü, sol altta link çıkmaz -->
+                                <button type="button"
+                                    class="w-100 p-3 rounded-4 d-flex flex-column align-items-center text-center border border-danger border-opacity-25 h-100 delete-box-btn transition-all"
+                                    style="background-color: #fff5f5;"
+                                    onclick="if(confirm('⚠️ Hesabın silinecek. Emin misin?')) window.location.href='/delete/user?_method=DELETE'">
+
                                     <div class="p-3 mb-2" style="font-size: 32px;">🗑️</div>
                                     <span class="fw-semibold text-danger">Hesabı Sil</span>
-                                </a>
+
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -243,17 +248,17 @@
                                     <!-- Dersi Sil Butonu (Kırmızı / Tehlike Rengi) -->
                                     <button type="button"
                                         class="btn btn-danger px-4 py-2.5 rounded-3 fw-semibold shadow-sm"
-                                        onclick="if(confirm('Bu dersi silmek istediğinize emin misiniz?')) window.location.href='/courses/delete/<%= courses[i]._id %>'">
+                                        onclick="if(confirm('Bu dersi silmek istediğinize emin misiniz?')) window.location.href='/courses/<%= courses[i]._id %>?_method=DELETE'">
                                         🗑️ Sil
                                     </button>
 
                                     <!-- Dersi Düzenle Butonu (Turuncu / Uyarı Rengi) -->
                                     <button type="button"
                                         class="btn btn-warning px-4 py-2.5 rounded-3 fw-semibold shadow-sm text-dark"
-                                        onclick="window.location.href='/courses/edit/<%= courses[i]._id %>'">
+                                        onclick="window.location.href='/edit/course/<%= courses[i]._id %>'">
                                         ✏️ Düzenle
                                     </button>
-                                <% } %>
+                                    <% } %>
                             </div>
 
                         </div>

@@ -1,7 +1,8 @@
 const flash = require('connect-flash');
 const User = require("../models/User");
+const Course = require("../models/Course");
 
-exports.getMainPage = async(req,res) => {
+exports.getMainPage = async (req, res) => {
     res.render("index", { pageName: "home", message: req.flash("mainErr"), userId: req.session.userId });
 }
 
@@ -56,7 +57,7 @@ exports.getEditUserPage = async (req, res) => {
         if (req.session.userId) {
             const user = await User.findOne({ _id: req.session.userId });
             res.render("editUser", { pageName: "editUser", user, userId: req.session.userId, message: req.flash("editUserErr") });
-        }else{
+        } else {
             req.flash("loginErr", "Hesap bilgilerini güncellemek için giriş yapın!!");
             res.status(400).redirect("/login");
         }
@@ -65,5 +66,22 @@ exports.getEditUserPage = async (req, res) => {
             status: "fail",
             error
         });
+    }
+}
+
+exports.getEditCoursePage = async (req, res) => {
+    try {
+        if (req.session.userRole === "trainer") {
+            const course = await Course.findOne({ _id: req.params.id });
+            res.render("editCourse", { pageName: "editUser", course, userId: req.session.userId, message: req.flash("mainErr")})
+        }else{
+            req.flash("mainErr", "Kurs düzenleme sayfasına erişebilmek için antrenör hesabı ve kursun size ait olması gereklidir!!!");
+            res.status(400).redirect("/");
+        }
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            error
+        })
     }
 }
