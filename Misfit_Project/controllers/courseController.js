@@ -2,14 +2,14 @@ const Course = require("../models/Course")
 const User = require("../models/User");
 
 exports.getAllCourses = async (req, res) => {
-    const courses = await Course.find({}).sort({ dateCreated: -1 });
+    const courses = await Course.find({}).sort({ dateCreated: -1 }).populate("user");
 
     let signupedCourses = [];
     if(req.session.userRole === "student"){
         const user = await User.findOne({_id: req.session.userId});
         signupedCourses = user.courses;
     }
-    
+
     res.render("courses", { pageName: "courses", courses, signupedCourses, userId: req.session.userId, userRole: req.session.userRole, message: req.flash("courseErr") });
 }
 
