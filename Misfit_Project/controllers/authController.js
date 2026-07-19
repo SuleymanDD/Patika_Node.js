@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const sendEmail = require("../utils/sendMail");
 
 exports.signup = async (req, res) => {
     try {
@@ -109,6 +110,30 @@ exports.deleteUser = async (req, res) => {
     await User.findByIdAndDelete({ _id: req.session.userId });
     clearSession(req, res, redirectTo = "/");
 }
+
+exports.sendEmail = async (req, res) => {
+    const { name, email, phone, subject, message } = req.body;
+
+    try {
+        // Hazırladığımız mail fonksiyonuna form verilerini gönderiyoruz
+        await sendEmail({
+            name: name,
+            email: email,
+            phone: phone,
+            subject: subject,
+            message: message
+        });
+
+        // Mail başarıyla giderse kullanıcıya olumlu dönüş yap veya sayfayı yenile
+        req.flash("mainErr", "Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapılacaktır.");
+        res.status(200).redirect("/");
+        
+    } catch (error) {
+        console.error("Mail gönderme hatası:", error);
+        res.status(500).json({ success: false, message: 'Mail gönderilirken bir hata oluştu.' });
+    }
+}
+
 
 function clearSession(req, res, redirectTo) {
     req.session.destroy((err) => {
