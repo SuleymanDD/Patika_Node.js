@@ -1,0 +1,146 @@
+<%- include('partials/_header') -%>
+
+    <body>
+        <%- include('partials/_navbar') -%>
+
+            <% if (message.length> 0) { %>
+                <p
+                    style="display: flex; justify-content: center; background-color: #0a2236; color: #ffffff; margin: 0;">
+                    <%= message %>
+                </p>
+            <% } %>
+
+            <div class="back_re">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="title">
+                                <h2>Our Courses</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                    <div class="dashboard-container">
+
+                        <% if(courses.length){ %>
+                            <div class="education-grid">
+                                <% for(let i=0; i<courses.length; i++){ %>
+                                    <div class="education-card">
+                                        <img src="<%= courses[i].image %>" alt="Eğitim Görseli">
+                                        <div class="card-content">
+                                            <h3>
+                                                <%= courses[i].title %>
+                                            </h3>
+                                            <p>
+                                                <%= courses[i].shortdesc %>
+                                            </p>
+                                            <a href="#course"
+                                                class="btn btn-primary py-2.5 px-4 rounded-3 fw-semibold shadow-sm d-inline-flex align-items-center gap-2 transition-all profile-action-btn"
+                                                onclick="openModal('course-<%= courses[i]._id %>')">
+                                                📖 Eğitime Git
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                            </div>
+                            <% }else{ %>
+                                <div class="no-courses-message">
+                                    <p>Henüz bir eğitim bulunmamaktadır.</p>
+                                </div>
+                                <% } %>
+                    </div>
+
+
+                    <% for(let i=0; i<courses.length; i++){ %>
+                        <div id="course-<%= courses[i]._id %>" class="modal" tabindex="-1"
+                            aria-labelledby="modalTitle-<%= courses[i]._id %>" aria-hidden="true">
+                            <!-- modal-dialog-scrollable: İçerik taşarsa modal içinde scroll çıksın diye ekledik -->
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                                style="max-width: 1000px; width: 100%;">
+
+                                <!-- Sabit yükseklik ve genişlik ayarları burada yapılıyor -->
+                                <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden"
+                                    style="height: 1000px; display: flex; flex-direction: column;">
+
+                                    <!-- 1. Sabit Başlık Alanı -->
+                                    <div
+                                        class="modal-header border-0 pt-4 px-4 pb-2 d-flex align-items-center justify-content-between flex-shrink-0">
+                                        <h4 class="modal-title fw-bold text-dark mb-0"
+                                            id="modalTitle-<%= courses[i]._id %>">
+                                            <%= courses[i].title %>
+                                        </h4>
+                                        <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"
+                                            aria-label="Kapat"
+                                            onclick="closeModal('course-<%= courses[i]._id %>')"></button>
+                                    </div>
+
+                                    <!-- 2. Kendi İçinde Kaydırılabilir Gövde Alanı -->
+                                    <div class="modal-body px-4 pb-3 flex-grow-1" style="overflow-y: auto;">
+                                        <!-- Kurs Görseli (Görsel boyutu da sabitlendi) -->
+                                        <div class="mb-4 overflow-hidden rounded-3 shadow-sm">
+                                            <img src="<%= courses[i].image %>" alt="<%= courses[i].title %>"
+                                                class="img-fluid w-100 object-fit-cover" style="height: 500px;">
+                                        </div>
+
+                                        <!-- Kurs Açıklaması -->
+                                        <p class="text-muted lh-base text-break" style="font-size: 16px;">
+                                            <%= courses[i].description %>
+                                        </p>
+                                    </div>
+
+                                    <!-- 3. Sabit Buton Alanı -->
+                                    <div
+                                        class="modal-header border-0 pt-2 px-4 pb-4 d-flex gap-3 justify-content-end flex-shrink-0">
+                                        <% if(userRole !=="trainer" ) { %>
+                                            <% if(signupedCourses.some(e => String(e) === String(courses[i]._id))){ %>
+                                                <button type="button"
+                                                    class="btn btn-primary px-4 py-2.5 rounded-3 fw-semibold shadow-sm text-white disabled">
+                                                    ✔️ Kayıt Olundu
+                                                </button>
+                                            <% }else{ %>
+                                                <button type="button"
+                                                    class="btn btn-primary px-4 py-2.5 rounded-3 fw-semibold shadow-sm text-white"
+                                                    onclick=" window.location.href='/signupCourse/<%= courses[i]._id %>'">
+                                                    🧾 Kayıt Ol
+                                                </button>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                            <%- include('partials/_footer') -%>
+    </body>
+
+    <script>
+        function openModal(modalName) {
+            const modal = document.getElementById(modalName);
+            modal.style.display = "flex";
+        }
+
+        function closeModal(modalName) {
+            const modal = document.getElementById(modalName);
+            modal.style.display = "none";
+        }
+
+        window.onkeydown = function (event) {
+            if (event.key === "Escape") {
+                const modals = document.querySelectorAll(".modal");
+                modals.forEach(modal => {
+                    modal.style.display = "none";
+                });
+            }
+        };
+
+        function checkForSignup(){
+            if(userRole === "student"){
+
+            }
+        }
+    </script>
+
+    </html>

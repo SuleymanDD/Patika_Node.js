@@ -36,10 +36,14 @@ app.get("/logout", authController.logout);
 app.put("/update/user", authController.editUser);
 app.delete("/delete/user", authController.deleteUser);
 
-app.get("/profile", courseController.getAllCourses);
+app.get("/profile", courseController.getCourses);
+app.get("/courses", courseController.getAllCourses);
 app.post("/courses", courseController.createCourse);
 app.put("/courses/:id", courseController.updateCourse);
 app.delete("/courses/:id", courseController.deleteCourse);
+
+app.get("/signupCourse/:id", courseController.signupCourse);
+app.delete("/signoutCourse/:id", courseController.signoutCourse);
 
 app.get("/", pageController.getMainPage);
 app.get("/about", pageController.getAboutPage);

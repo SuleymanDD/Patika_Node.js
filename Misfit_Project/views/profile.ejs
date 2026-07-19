@@ -258,7 +258,15 @@
                                         onclick="window.location.href='/edit/course/<%= courses[i]._id %>'">
                                         ✏️ Düzenle
                                     </button>
-                                    <% } %>
+                                <% } %>
+
+                                <% if(userRole === "student"){ %> 
+                                    <button type="button"
+                                        class="btn btn-danger px-4 py-2.5 rounded-3 fw-semibold shadow-sm"
+                                        onclick="if(confirm('Bu ders kaydını silmek istediğinize emin misiniz?')) window.location.href='/signoutCourse/<%= courses[i]._id %>?_method=DELETE'">
+                                        🗑️ Ders Kaydını Sil
+                                    </button>
+                                <% } %>
                             </div>
 
                         </div>
