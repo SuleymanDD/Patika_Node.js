@@ -352,7 +352,7 @@ input.form-control::placeholder {
     float: left;
     font-size: 18px;
     color: #fefefd;
-    padding: 0px 37px 0px 37px;
+    padding: 0px 37px 0px 50px;
     font-family: 'Sen', sans-serif;
 }
 
@@ -590,8 +590,8 @@ input.form-control::placeholder {
     width: 100%;
     float: left;
     background-color: #061543;
-    height: 750px;
-    margin-bottom: 150px;
+    height: 820px;
+    padding: 10px;
 }
 
 .furnitures_taital {
@@ -862,9 +862,10 @@ textarea#comment::placeholder {
 }
 
 .btn_main {
-    width: 51%;
+    width: 170px;
     margin: 0 auto;
-    text-align: center;
+    padding-top: 60px;
+    display: flex;
 }
 
 .send_bt {
