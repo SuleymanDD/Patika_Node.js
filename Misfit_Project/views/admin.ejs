@@ -1,0 +1,186 @@
+<%- include("partials/_header") %>
+
+    <body class="bg-light">
+
+        <div class="container my-5">
+            <!-- Admin Başlık ve İstatistikler -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold text-dark">👑 Admin Paneli</h2>
+            </div>
+
+            <!-- İstatistik Kartları -->
+            <div class="row mb-5 g-4">
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100 admin-stat-card">
+                        <div class="fs-1 mb-2">👥</div>
+                        <h3 class="fw-bold text-primary">
+                            <%= users.length %>
+                        </h3>
+                        <span class="text-muted fw-semibold">Toplam Kullanıcı</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100 admin-stat-card">
+                        <div class="fs-1 mb-2">📚</div>
+                        <h3 class="fw-bold text-success">
+                            <%= courses.length %>
+                        </h3>
+                        <span class="text-muted fw-semibold">Toplam Kurs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sekmeler (Tabs) -->
+            <ul class="nav nav-pills mb-4 border-bottom pb-3" id="adminTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active fw-semibold px-4 rounded-pill" id="users-tab" data-bs-toggle="pill"
+                        data-bs-target="#users" type="button" role="tab">Kullanıcı Yönetimi</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link fw-semibold px-4 rounded-pill mx-2" id="courses-tab" data-bs-toggle="pill"
+                        data-bs-target="#courses" type="button" role="tab">Kurs Yönetimi</button>
+                </li>
+            </ul>
+
+            <!-- Sekme İçerikleri -->
+            <div class="tab-content" id="adminTabsContent">
+
+                <!-- 1. KULLANICILAR SEKME İÇERİĞİ -->
+                <div class="tab-pane fade show active" id="users" role="tabpanel">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="py-3 ps-4">Kullanıcı Adı</th>
+                                            <th class="py-3">Yaş</th>
+                                            <th class="py-3 ps-4">Rol</th>
+                                            <th class="py-3 text-end pe-4">İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(let i=0; i < users.length; i++) { %>
+                                            <tr>
+                                                <td class="ps-4 fw-semibold text-dark">
+                                                    <%= users[i].name %>
+                                                </td>
+                                                <td class="text-muted">
+                                                    <%= users[i].age %>
+                                                </td>
+                                                <td>
+                                                    <!-- Rolüne göre farklı renkli rozet -->
+                                                    <% if(users[i].role==='admin' ) { %>
+                                                        <span
+                                                            class="badge bg-danger bg-opacity-10 text-danger px-3 py-2 rounded-pill">Admin</span>
+                                                        <% } else if(users[i].role==='trainer' ) { %>
+                                                            <span
+                                                                class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill">Antrenör</span>
+                                                            <% } else { %>
+                                                                <span
+                                                                    class="badge bg-secondary bg-opacity-10 text-secondary px-3 py-2 rounded-pill">Öğrenci</span>
+                                                                <% } %>
+                                                </td>
+                                                <td class="text-end pe-4">
+                                                    <!-- Silme Butonu (Form ile POST/DELETE) -->
+                                                    <form action="/admin/users/<%= users[i]._id %>?_method=DELETE"
+                                                        method="POST" class="d-inline"
+                                                        onsubmit="return confirm('Bu kullanıcıyı kalıcı olarak silmek istediğine emin misin?');">
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-outline-danger rounded-3 fw-semibold">🗑️
+                                                            Sil</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. KURSLAR SEKME İÇERİĞİ -->
+                <div class="tab-pane fade" id="courses" role="tabpanel">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="py-3 ps-4">Kurs Görseli</th>
+                                            <th class="py-3">Kurs Adı</th>
+                                            <th class="py-3 ps-3">Eğitmen</th>
+                                            <th class="py-3 text-end pe-4">İşlemler</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(let i=0; i < courses.length; i++) { %>
+                                            <tr>
+                                                <td class="ps-4">
+                                                    <img src="<%= courses[i].image %>" alt="Kurs" class="rounded-3"
+                                                        style="width: 60px; height: 40px; object-fit: cover;">
+                                                </td>
+                                                <td class="fw-semibold text-dark">
+                                                    <%= courses[i].title %>
+                                                </td>
+                                                <td class="text-muted">
+                                                    <%= courses[i].user ? courses[i].user.name : 'Bilinmiyor' %>
+                                                </td>
+                                                <td class="text-end pe-4">
+                                                    <!-- Düzenle Butonu -->
+                                                    <a href="/edit/course/<%= courses[i]._id %>"
+                                                        class="btn btn-sm btn-outline-warning text-dark rounded-3 fw-semibold me-1">✏️
+                                                        Düzenle</a>
+                                                    <!-- Silme Butonu -->
+                                                    <form action="/admin/courses/<%= courses[i]._id %>?_method=DELETE"
+                                                        method="POST" class="d-inline"
+                                                        onsubmit="return confirm('Bu kursu silmek istediğinize emin misiniz?');">
+                                                        <button type="submit"
+                                                            class="btn btn-sm btn-outline-danger rounded-3 fw-semibold">🗑️
+                                                            Sil</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+
+    <style>
+        /* İstatistik kartlarına özel havada asılı durma ve parlama efekti */
+        .admin-stat-card {
+            transition: all 0.3s ease-in-out;
+            background-color: #ffffff;
+        }
+
+        .admin-stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        /* Bootstrap tablosunun kenarlıklarını yumuşatmak için */
+        .table> :not(caption)>*>* {
+            border-bottom-color: #f1f5f9;
+        }
+    </style>
+    <!-- Javascript files-->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery-3.0.0.min.js"></script>
+    <!-- sidebar -->
+    <script src="/js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/js/custom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    </html>

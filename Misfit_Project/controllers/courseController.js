@@ -5,8 +5,8 @@ exports.getAllCourses = async (req, res) => {
     const courses = await Course.find({}).sort({ dateCreated: -1 }).populate("user");
 
     let signupedCourses = [];
-    if(req.session.userRole === "student"){
-        const user = await User.findOne({_id: req.session.userId});
+    if (req.session.userRole === "student") {
+        const user = await User.findOne({ _id: req.session.userId });
         signupedCourses = user.courses;
     }
 
@@ -23,6 +23,12 @@ exports.getCourses = async (req, res) => {
         switch (user.role) {
             case "student":
                 courses = await Course.find({ _id: { $in: user.courses } }).sort({ dateCreated: -1 });
+
+                // Sistem de öğrencilerin kayıtlı olduğu kurslar silidniğinde veritabanında eski kurs idlerinin birikmemesi için düzenlenmiş bir işlemdir.
+                if (courses.length > 0) {
+                    checkOldCourseIds(user, courses);
+                }
+
                 break;
             case "trainer":
                 courses = await Course.find({ user: req.session.userId }).sort({ dateCreated: -1 });
@@ -45,7 +51,12 @@ exports.createCourse = async (req, res) => {
 
 exports.updateCourse = async (req, res) => {
     await Course.findByIdAndUpdate({ _id: req.params.id }, req.body);
-    res.status(200).redirect("/profile");
+
+    if (req.session.userRole === "admin") {
+        res.status(200).redirect("/panel");
+    } else {
+        res.status(200).redirect("/profile");
+    }
 }
 
 exports.deleteCourse = async (req, res) => {
@@ -76,3 +87,11 @@ exports.signoutCourse = async (req, res) => {
     res.status(200).redirect("/profile");
 }
 
+async function checkOldCourseIds(user, allCourses) {
+    user.courses = user.courses.filter((e) => {
+        if (e !== null) e = e.toString();
+        const isExist = allCourses.find((course) => course._id.toString() === e);
+        return isExist;
+    });
+    await user.save();
+}

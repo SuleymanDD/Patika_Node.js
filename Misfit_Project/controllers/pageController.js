@@ -71,11 +71,30 @@ exports.getEditUserPage = async (req, res) => {
 
 exports.getEditCoursePage = async (req, res) => {
     try {
-        if (req.session.userRole === "trainer") {
+        if (req.session.userRole === "trainer" || "admin") {
             const course = await Course.findOne({ _id: req.params.id });
-            res.render("editCourse", { pageName: "editUser", course, userId: req.session.userId, message: req.flash("mainErr")})
-        }else{
+            res.render("editCourse", { pageName: "editUser", course, userId: req.session.userId, message: req.flash("mainErr") })
+        } else {
             req.flash("mainErr", "Kurs düzenleme sayfasına erişebilmek için antrenör hesabı ve kursun size ait olması gereklidir!!!");
+            res.status(400).redirect("/");
+        }
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            error
+        })
+    }
+}
+
+exports.getAdminPage = async (req, res) => {
+    try {
+        if (req.session.userRole === "admin") {
+            const users = await User.find({});
+            const courses = await Course.find({}).sort({dateCreated: -1}).populate("user");
+            
+            res.render("admin", {users, courses});
+        }else{
+            req.flash("mainErr", "Erişim Engeli");
             res.status(400).redirect("/");
         }
     } catch (error) {

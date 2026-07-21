@@ -1,6 +1,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const sendEmail = require("../utils/sendMail");
+const Course = require("../models/Course");
 
 exports.signup = async (req, res) => {
     try {
@@ -38,6 +39,7 @@ exports.login = async (req, res) => {
                 if (same) {
                     req.session.userId = user._id;
                     req.session.userRole = user.role;
+                    if(user.role === "admin") return res.redirect("/panel");
                     res.redirect("/");
                 } else {
                     req.flash("loginErr", "Kullanıcı ismi veya şifre yanlış tekrar deneyin!!");
@@ -108,6 +110,8 @@ exports.editUser = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
     await User.findByIdAndDelete({ _id: req.session.userId });
+    await Course.deleteMany({user: req.session.userId});
+
     clearSession(req, res, redirectTo = "/");
 }
 

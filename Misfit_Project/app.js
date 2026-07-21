@@ -9,6 +9,7 @@ const session = require('express-session');
 const pageController = require("./controllers/pageController");
 const authController = require("./controllers/authController");
 const courseController = require("./controllers/courseController");
+const adminController = require("./controllers/adminController");
 
 const app = express();
 dotenv.config();
@@ -47,6 +48,9 @@ app.delete("/courses/:id", courseController.deleteCourse);
 app.get("/signupCourse/:id", courseController.signupCourse);
 app.delete("/signoutCourse/:id", courseController.signoutCourse);
 
+app.delete("/admin/users/:id", adminController.deleteUser);
+app.delete("/admin/courses/:id", adminController.deleteCourse);
+
 app.get("/", pageController.getMainPage);
 app.get("/about", pageController.getAboutPage);
 app.get("/contact", pageController.getContactPage);
@@ -57,6 +61,7 @@ app.get("/login", pageController.getLoginPage);
 app.get("/addCourse", pageController.getAddCoursePage);
 app.get("/edit/user", pageController.getEditUserPage);
 app.get("/edit/course/:id", pageController.getEditCoursePage);
+app.get("/panel", pageController.getAdminPage);
 
 app.listen(process.env.PORT || 4000, () => {
     console.log("Sunucu başlatılıyor... http://localhost:4000");
