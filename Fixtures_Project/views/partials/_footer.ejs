@@ -4,10 +4,10 @@
          <div class="container">
             <div class="footer_menu">
                <ul>
-                  <li class="active"><a href="/">HOME</a></li>
-                  <li><a href="/about">About</a></li>
-                  <li><a href="/furnitures">Furnitures</a></li>
-                  <li><a href="/contact">contact Us</a></li>
+                  <li class="<%= pageName === 'home' ? 'active' : '' %>"><a href="/">HOME</a></li>
+                  <li class="<%= pageName === 'about' ? 'active' : '' %>"><a href="/about">About</a></li>
+                  <li class="<%= pageName === 'furnitures' ? 'active' : '' %>"><a href="/furnitures">Furnitures</a></li>
+                  <li class="<%= pageName === 'contact' ? 'active' : '' %>"><a href="/contact">contact Us</a></li>
                </ul>
             </div>
             <div class="social_icon">
