@@ -1059,6 +1059,7 @@ textarea#comment::placeholder {
   position: relative;
   display: inline-block;
   font-family: system-ui, -apple-system, sans-serif;
+  margin-top: 3px;
 }
 
 /* Profil Butonu */

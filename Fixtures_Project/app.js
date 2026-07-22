@@ -36,6 +36,7 @@ app.get("/furnitures", pageController.getFurnituresPage);
 app.get("/contact", pageController.getContactPage);
 app.get("/signup", pageController.getSignupPage);
 app.get("/login", pageController.getLoginPage);
+app.get("/profile", pageController.getProfilePage);
 
 app.listen(process.env.PORT || 4000, () => {
     console.log("Sunucu başlatıldı...");

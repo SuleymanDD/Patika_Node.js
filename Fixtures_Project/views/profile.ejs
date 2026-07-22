@@ -1,0 +1,432 @@
+<%- include("partials/_header") %>
+  <title>Profilim - Mobilya Rezervasyon</title>
+<style>
+    /* Genel Sıfırlamalar */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Sayfa Kapsayıcısı */
+.profile-page-container {
+  max-width: 900px;
+  margin: 0 auto;
+  display: block;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* 1. Profil Header Kartı */
+.profile-header-card {
+  background: #ffffff;
+  border-radius: 16px;
+  margin-top: 150px;
+  margin-bottom: 25px;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.avatar-wrapper {
+  position: relative;
+}
+
+.avatar-placeholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #e0e7ff;
+  color: #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-edit-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #4f46e5;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-name-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-name-row h1 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.user-badge {
+  background-color: #dcfce7;
+  color: #166534;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.user-email {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Bölüm Başlıkları */
+.section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 50px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-title h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.count-badge {
+  background-color: #f1f5f9;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+/* 2. Mobilya Kartları Izgarası (Grid) */
+.furniture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.furniture-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.furniture-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.card-image {
+  position: relative;
+  height: 180px;
+  width: 100%;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.status-tag {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.status-active {
+  background-color: rgba(220, 252, 231, 0.9);
+  color: #15803d;
+}
+
+.status-pending {
+  background-color: rgba(254, 243, 199, 0.9);
+  color: #b45309;
+}
+
+.card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-body h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.reservation-date {
+  font-size: 13px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* 3. Ayarlar Kartı */
+.settings-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 20px 24px;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.settings-info h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.settings-info p {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.divider {
+  height: 1px;
+  background-color: #f1f5f9;
+  margin: 16px 0;
+}
+
+.text-danger {
+  color: #dc2626 !important;
+}
+
+/* Buton Stilleri */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary {
+  background-color: #f1f5f9;
+  color: #334155;
+}
+
+.btn-secondary:hover {
+  background-color: #e2e8f0;
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+.btn-outline:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.btn-danger {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+}
+
+.btn-danger:hover {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+/* Mobil Uyum (Responsive) */
+@media (max-width: 640px) {
+  .profile-header-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .user-name-row {
+    flex-direction: column;
+  }
+
+  .settings-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .settings-row .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>
+<body>
+
+    <%- include("partials/_navbar") %>
+
+  <div class="profile-page-container">
+    
+    <!-- 1. KULLANICI PROFİL KARTI (HEADER) -->
+    <header class="profile-header-card">
+      <div class="avatar-wrapper">
+        <!-- Varsayılan Avatar SVG (İsterseniz <img src="avatar.jpg"> kullanabilirsiniz) -->
+        <div class="avatar-placeholder">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div>
+        <button class="avatar-edit-btn" title="Fotoğrafı Değiştir">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+        </button>
+      </div>
+      
+      <div class="user-info">
+        <div class="user-name-row">
+          <h1><%= user.name %></h1>
+          <span class="user-badge">Onaylı Üye</span>
+        </div>
+        <p class="user-email"><%= user.mail %></p>
+      </div>
+    </header>
+
+    <!-- 2. REZERVE MOBİLYALAR BÖLÜMÜ -->
+    <section class="section-block">
+      <div class="section-title">
+        <h2>Rezerve Edilen Mobilyalar</h2>
+        <span class="count-badge"><%= user.reserved.length %> Ürün</span>
+      </div>
+
+      <div class="furniture-grid">
+        
+        <% for(let i=0; i<user.reserved.length; i++){ %>
+            <article class="furniture-card">
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80" alt="Yeşil Berjer">
+                <span class="status-tag status-active">Aktif Rezervasyon</span>
+            </div>
+            <div class="card-body">
+                <h3>İskandinav Ahşap Berjer</h3>
+                <p class="reservation-date">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                Teslim Tarihi: 12 Ağustos 2026
+                </p>
+                <div class="card-footer">
+                <span class="price">4.250 ₺</span>
+                <button class="btn btn-secondary">Detaylar</button>
+                </div>
+            </div>
+            </article>
+        <% } %>
+
+      </div>
+    </section>
+
+    <!-- 3. HESAP AYARLARI BÖLÜMÜ -->
+    <section class="section-block">
+      <div class="section-title">
+        <h2>Hesap Ayarları</h2>
+      </div>
+
+      <div class="settings-card">
+        
+        <!-- Oturumu Kapat -->
+        <div class="settings-row">
+          <div class="settings-info">
+            <h4>Oturumu Kapat</h4>
+            <p>Mevcut cihazdaki oturumunuzu sonlandırır.</p>
+          </div>
+          <button type="button" class="btn btn-outline" id="logoutBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            Oturumu Kapat
+          </button>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Hesabı Sil -->
+        <div class="settings-row danger-zone">
+          <div class="settings-info">
+            <h4 class="text-danger">Hesabı Sil</h4>
+            <p>Hesabınızı ve tüm rezervasyon verilerinizi kalıcı olarak siler. Bu işlem geri alınamaz.</p>
+          </div>
+          <button type="button" class="btn btn-danger" id="deleteAccountBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+            Hesabımı Sil
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+  </div>
+  <%- include("partials/_footer") %>
+
+  <script>
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      alert('Oturum kapatılıyor...');
+    });
+
+    document.getElementById('deleteAccountBtn').addEventListener('click', () => {
+      if (confirm('Hesabınızı kalıcı olarak silmek istediğinize emin misiniz?')) {
+        alert('Hesap silme işlemi başlatıldı.');
+      }
+    });
+  </script>
+
+</body>
+</html>
