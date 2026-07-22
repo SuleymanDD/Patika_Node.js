@@ -8,17 +8,16 @@ const UserSchema = new Schema({
     },
     mail: {
         type: String,
-        required: true,
-        unique: true
+        required: true
     },
     password: {
         type: String,
         required: true
     },
-    reserved: {
+    reserved: [{
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'furniture'
-    }
+    }]
 })
 
 const User = mongoose.model("User", UserSchema);

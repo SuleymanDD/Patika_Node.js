@@ -14,3 +14,7 @@ exports.getFurnituresPage = (req, res) => {
 exports.getContactPage = (req, res) => {
     res.render("contact", {pageName: "contact"});
 }
+
+exports.getSignupPage = (req, res) => {
+    res.render("signup", {pageName: "signup", message: req.flash("signupMessage")});
+}
