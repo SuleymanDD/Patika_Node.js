@@ -24,11 +24,16 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use(mehodOverride("_method", {
+  methods: ["POST", "GET"]
+}));
 
 app.set("view engine", "ejs");
 
 app.post("/signup", authController.signup);
 app.post("/login", authController.login);
+app.get("/logout", authController.logout);
+app.delete("/delete/user", authController.deleteUser);
 
 app.get("/", pageController.getHomePage);
 app.get("/about", pageController.getAboutPage);

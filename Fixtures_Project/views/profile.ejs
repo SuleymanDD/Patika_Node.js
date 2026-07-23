@@ -390,7 +390,7 @@
             <h4>Oturumu Kapat</h4>
             <p>Mevcut cihazdaki oturumunuzu sonlandırır.</p>
           </div>
-          <button type="button" class="btn btn-outline" id="logoutBtn">
+          <button type="button" class="btn btn-outline" id="logoutBtn" onclick="window.location.href='/logout'">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
             Oturumu Kapat
           </button>
@@ -404,7 +404,7 @@
             <h4 class="text-danger">Hesabı Sil</h4>
             <p>Hesabınızı ve tüm rezervasyon verilerinizi kalıcı olarak siler. Bu işlem geri alınamaz.</p>
           </div>
-          <button type="button" class="btn btn-danger" id="deleteAccountBtn">
+          <button type="button" class="btn btn-danger" id="deleteAccountBtn" onclick="if(confirm('Hesabını silmek istediğine emin misin?')) window.location.href='/delete/user?_method=DELETE' ">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
             Hesabımı Sil
           </button>
@@ -415,18 +415,6 @@
 
   </div>
   <%- include("partials/_footer") %>
-
-  <script>
-    document.getElementById('logoutBtn').addEventListener('click', () => {
-      alert('Oturum kapatılıyor...');
-    });
-
-    document.getElementById('deleteAccountBtn').addEventListener('click', () => {
-      if (confirm('Hesabınızı kalıcı olarak silmek istediğinize emin misiniz?')) {
-        alert('Hesap silme işlemi başlatıldı.');
-      }
-    });
-  </script>
 
 </body>
 </html>

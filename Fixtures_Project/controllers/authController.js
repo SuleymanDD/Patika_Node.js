@@ -59,3 +59,26 @@ exports.login = async (req, res) => {
         });
     }
 }
+
+exports.logout = (req, res) => {
+    clearSession(req, res, "/");
+}
+
+exports.deleteUser = async (req, res) => {
+    await User.findByIdAndDelete({_id: req.session.userID});
+    clearSession(req, res, "/");
+}
+
+function clearSession(req, res, redirectTo){
+    req.session.destroy((err)=> {
+        if(err){
+            console.log("Session verisi silinemedi!!", err);
+            return res.status(500).send("Çıkış Yapılamadı!!");
+        }
+
+        // 'connect.sid', express-session'ın varsayılan çerez ismidir
+        res.clearCookie('connect.sid');
+
+        res.status(201).redirect(redirectTo);
+    })
+}
