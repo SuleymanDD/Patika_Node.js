@@ -1,43 +1,331 @@
 <%- include('partials/_header') %>
+   <style>
+      /* --- GENEL KAPSAYICI VE BÖLÜM STİLLERİ --- */
+
+      .page-container {
+         max-width: 1000px;
+         margin: 0 auto;
+         padding: 32px 16px;
+         display: flex;
+         flex-direction: column;
+         gap: 32px;
+      }
+
+      /* Eksik Olan Bölüm Bloğu (Section Block) */
+      .section-block {
+         display: flex;
+         flex-direction: column;
+         gap: 20px;
+         width: 100%;
+      }
+
+      .section-title {
+         display: flex;
+         align-items: center;
+         gap: 10px;
+      }
+
+      .section-title h2 {
+         font-size: 20px;
+         font-weight: 700;
+         color: #0f172a;
+         margin: 0;
+      }
+
+      .count-badge {
+         background-color: #e2e8f0;
+         color: #475569;
+         font-size: 12px;
+         font-weight: 600;
+         padding: 2px 10px;
+         border-radius: 12px;
+         margin-bottom: 8px;
+      }
+
+      /* --- GRID VE KART YAPISI --- */
+
+      .furniture-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+         gap: 24px;
+         width: 100%;
+      }
+
+      .furniture-card {
+         background: #ffffff;
+         border-radius: 12px;
+         border: 1px solid #e2e8f0;
+         overflow: hidden;
+         display: flex;
+         flex-direction: column;
+         transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .furniture-card:hover {
+         transform: translateY(-4px);
+         box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.08);
+      }
+
+      .card-image {
+         position: relative;
+         height: 200px;
+         width: 100%;
+         background-color: #f8fafc;
+      }
+
+      .card-image img {
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         display: block;
+      }
+
+      /* Durum Rozetleri */
+      .status-tag {
+         position: absolute;
+         top: 12px;
+         right: 12px;
+         font-size: 11px;
+         font-weight: 600;
+         padding: 4px 10px;
+         border-radius: 20px;
+         backdrop-filter: blur(4px);
+         z-index: 2;
+      }
+
+      .status-available {
+         background-color: rgba(220, 252, 231, 0.95);
+         color: #15803d;
+      }
+
+      .status-reserved {
+         background-color: rgba(254, 226, 226, 0.95);
+         color: #b91c1c;
+      }
+
+      /* Kart İçeriği */
+      .card-body {
+         padding: 16px;
+         display: flex;
+         flex-direction: column;
+         gap: 8px;
+         flex: 1;
+      }
+
+      .category-tag {
+         display: inline-block;
+         font-size: 11px;
+         font-weight: 600;
+         color: #4f46e5;
+         background-color: #eef2ff;
+         padding: 3px 8px;
+         border-radius: 6px;
+         width: fit-content;
+      }
+
+      .card-body h3 {
+         font-size: 16px;
+         font-weight: 600;
+         color: #1e293b;
+         margin: 4px 0 0 0;
+      }
+
+      .created-date {
+         font-size: 12px;
+         color: #64748b;
+         display: flex;
+         align-items: center;
+         gap: 6px;
+         margin-top: 4px;
+      }
+
+      /* Alt Kısım (Fiyat ve Buton) */
+      .card-footer {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         margin-top: auto;
+         padding-top: 12px;
+         border-top: 1px solid #f1f5f9;
+      }
+
+      .price {
+         font-size: 17px;
+         font-weight: 700;
+         color: #0f172a;
+      }
+
+      /* Buton Stilleri */
+      .btn {
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         gap: 8px;
+         padding: 8px 16px;
+         border-radius: 8px;
+         font-size: 13px;
+         font-weight: 500;
+         cursor: pointer;
+         border: none;
+         transition: all 0.2s ease;
+      }
+
+      .btn-primary {
+         background-color: #4f46e5;
+         color: #ffffff;
+      }
+
+      .btn-primary:hover {
+         background-color: #4338ca;
+      }
+
+      .btn-disabled {
+         background-color: #f1f5f9;
+         color: #94a3b8;
+         cursor: not-allowed;
+         border: 1px solid #e2e8f0;
+      }
+   </style>
+
    <body>
       <%- include('partials/_navbar') %>
-      <!-- furnitures section start -->
-      <div class="furnitures_section">
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-12">
-                  <h1 class="furnitures_taital">Our Furnitures Work</h1>
-                  <p class="furnitures_text">reader will be distracted by the readable content of a page when looking at its layout. </p>
+
+         <div class="page-container">
+            <!-- MOBİLYA İLANLARI GRID BÖLÜMÜ -->
+            <main class="section-block">
+               <div class="section-title">
+                  <h2>Tüm İlanlar</h2>
+                  <span class="count-badge">4 İlan</span>
                </div>
-            </div>
-            <div class="furnitures_section_2">
-               <div class="row">
-                  <div class="col-md-4">
-                     <div class="hover01 column">
-                        <figure><img src="/images/img-1.png"></figure>
+
+               <div class="furniture-grid">
+
+                  <!-- Mobilya Kartı 1 (Müsait) -->
+                  <article class="furniture-card">
+                     <div class="card-image">
+                        <img
+                           src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=600&q=80"
+                           alt="İskandinav Ahşap Berjer">
+                        <span class="status-tag status-available">Müsait</span>
                      </div>
-                     <h3 class="introduction_text">Bedroom</h3>
-                     <div class="seemore_bt"><a href="#">See More</a></div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="hover01 column">
-                        <figure><img src="/images/img-2.png"></figure>
+                     <div class="card-body">
+                        <span class="category-tag">Oturma Odası</span>
+                        <h3>İskandinav Ahşap Berjer</h3>
+
+                        <p class="created-date">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                              <line x1="16" y1="2" x2="16" y2="6"></line>
+                              <line x1="8" y1="2" x2="8" y2="6"></line>
+                              <line x1="3" y1="10" x2="21" y2="10"></line>
+                           </svg>
+                           İlan Tarihi: 15 Temmuz 2026
+                        </p>
+
+                        <div class="card-footer">
+                           <span class="price">4.250 ₺</span>
+                           <button class="btn btn-primary">Rezerve Et</button>
+                        </div>
                      </div>
-                     <h3 class="introduction_text">Office</h3>
-                     <div class="seemore_bt"><a href="#">See More</a></div>
-                  </div>
-                  <div class="col-md-4">
-                     <div class="hover01 column">
-                        <figure><img src="/images/img-3.png"></figure>
+                  </article>
+
+                  <!-- Mobilya Kartı 2 (Rezerve Edildi) -->
+                  <article class="furniture-card">
+                     <div class="card-image">
+                        <img
+                           src="https://images.unsplash.com/photo-1538688525198-9b88f6f53126?auto=format&fit=crop&w=600&q=80"
+                           alt="Masif Meşe Çalışma Masası">
+                        <span class="status-tag status-reserved">Rezerve Edildi</span>
                      </div>
-                     <h3 class="introduction_text">Bathroom</h3>
-                     <div class="seemore_bt"><a href="#">See More</a></div>
-                  </div>
+                     <div class="card-body">
+                        <span class="category-tag">Çalışma Odası</span>
+                        <h3>Masif Meşe Çalışma Masası</h3>
+
+                        <p class="created-date">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                              <line x1="16" y1="2" x2="16" y2="6"></line>
+                              <line x1="8" y1="2" x2="8" y2="6"></line>
+                              <line x1="3" y1="10" x2="21" y2="10"></line>
+                           </svg>
+                           İlan Tarihi: 10 Temmuz 2026
+                        </p>
+
+                        <div class="card-footer">
+                           <span class="price">8.900 ₺</span>
+                           <button class="btn btn-disabled" disabled>Rezerve Edildi</button>
+                        </div>
+                     </div>
+                  </article>
+
+                  <!-- Mobilya Kartı 3 (Müsait) -->
+                  <article class="furniture-card">
+                     <div class="card-image">
+                        <img
+                           src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=600&q=80"
+                           alt="Minimalist Çift Kişilik Yatak">
+                        <span class="status-tag status-available">Müsait</span>
+                     </div>
+                     <div class="card-body">
+                        <span class="category-tag">Yatak Odası</span>
+                        <h3>Minimalist Çift Kişilik Yatak</h3>
+
+                        <p class="created-date">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                              <line x1="16" y1="2" x2="16" y2="6"></line>
+                              <line x1="8" y1="2" x2="8" y2="6"></line>
+                              <line x1="3" y1="10" x2="21" y2="10"></line>
+                           </svg>
+                           İlan Tarihi: 22 Haziran 2026
+                        </p>
+
+                        <div class="card-footer">
+                           <span class="price">12.500 ₺</span>
+                           <button class="btn btn-primary">Rezerve Et</button>
+                        </div>
+                     </div>
+                  </article>
+
+                  <!-- Mobilya Kartı 4 (Müsait) -->
+                  <article class="furniture-card">
+                     <div class="card-image">
+                        <img
+                           src="https://images.unsplash.com/photo-1617806118233-18e1de247200?auto=format&fit=crop&w=600&q=80"
+                           alt="Modern Ahşap Yemek Masası">
+                        <span class="status-tag status-available">Müsait</span>
+                     </div>
+                     <div class="card-body">
+                        <span class="category-tag">Yemek Odası</span>
+                        <h3>Modern Ahşap Yemek Masası</h3>
+
+                        <p class="created-date">
+                           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"
+                              fill="none" stroke="currentColor" stroke-width="2">
+                              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                              <line x1="16" y1="2" x2="16" y2="6"></line>
+                              <line x1="8" y1="2" x2="8" y2="6"></line>
+                              <line x1="3" y1="10" x2="21" y2="10"></line>
+                           </svg>
+                           İlan Tarihi: 02 Haziran 2026
+                        </p>
+
+                        <div class="card-footer">
+                           <span class="price">9.750 ₺</span>
+                           <button class="btn btn-primary">Rezerve Et</button>
+                        </div>
+                     </div>
+                  </article>
+
                </div>
-            </div>
+            </main>
+
          </div>
-      </div>
-      <!-- furnitures section end -->
-      <%- include('partials/_footer') %>
+
+         <%- include('partials/_footer') %>
    </body>
-</html>
+
+   </html>

@@ -218,6 +218,7 @@ button {
     float: left;
     background-color: #061543;
     height: auto;
+    display: block;
 }
 
 .header_bg {

@@ -11,6 +11,10 @@ const FurnitureSchema = new Schema({
         type: String,
         required: true
     },
+    price: {
+        type: Number,
+        required: true
+    },
     category: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'category'
