@@ -1,6 +1,17 @@
 <%- include('partials/_header') %>
    <body>
       <%- include('partials/_navbar') %>
+      <% if (message) { %>
+         <div class="alert-box <%= message.type %>" id="flashAlert" style="height: 30px;">
+            <div class="alert-content">
+               <i class="alert-icon"></i>
+               <p>
+                  <%= message.msg %>
+               </p>
+            </div>
+            <button class="alert-close" onclick="this.parentElement.style.display='none';">&times;</button>
+         </div>
+      <% } %>
       <!-- banner section start --> 
       <div class="banner_section layout_padding">
          <div class="banner_section_2">

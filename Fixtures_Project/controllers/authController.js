@@ -42,7 +42,12 @@ exports.login = async (req, res) => {
 
                 if (same) {
                     req.session.userID = user._id;
-                    res.status(200).redirect("/");
+                    if(user._id.toString() === process.env.ADMIN_ID){
+                        res.status(200).redirect("/panel");
+                    }else{
+                        req.flash("homeMessage", {msg: "Başarıyla giriş sağlandı!!", type: "success"});
+                        res.status(200).redirect("/");
+                    }
                 } else {
                     req.flash("loginMessage", {msg: "Mail adresi veya şifre hatalı. Tekrar Deneyin!!", type: "error"});
                     res.status(400).redirect("/login");

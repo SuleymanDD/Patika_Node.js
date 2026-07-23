@@ -1,0 +1,579 @@
+
+
+<style>
+  /* --- GENEL SIFIRLAMA VE YAZI TİPİ DÜZELTMELERİ --- */
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    line-height: 1.5;
+  }
+
+  /* --- SAYFA DÜZENİ VE GENİŞLİK KONTROLÜ --- */
+  .page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    background: #ffffff;
+    padding: 20px 24px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+  }
+
+  .admin-title-group h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .admin-title-group p {
+    font-size: 13px;
+    color: #64748b;
+    margin-top: 2px;
+  }
+
+  /* --- İSTATİSTİK KARTLARI (KPI) --- */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    width: 100%;
+  }
+
+  .stat-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background-color: #eef2ff;
+    color: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .stat-info .stat-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.2;
+  }
+
+  .stat-info .stat-label {
+    font-size: 12px;
+    color: #64748b;
+  }
+
+  /* --- BÖLÜM VE TABLO YAPISI --- */
+  .section-block {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .count-badge {
+    background-color: #e2e8f0;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+  }
+
+  .table-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  }
+
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 13px;
+  }
+
+  .custom-table th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    padding: 12px 18px;
+    border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
+  }
+
+  .custom-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
+    vertical-align: middle;
+  }
+
+  .custom-table tbody tr:hover {
+    background-color: #f8fafc;
+  }
+
+  .table-furniture-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .table-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: #f1f5f9;
+  }
+
+  .furniture-name {
+    font-weight: 600;
+    color: #0f172a;
+    display: block;
+  }
+
+  /* --- ETİKETLER VEYA ROZETLER --- */
+  .category-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    color: #4f46e5;
+    background-color: #eef2ff;
+    padding: 2px 8px;
+    border-radius: 6px;
+  }
+
+  .status-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+  }
+
+  .status-available {
+    background-color: #dcfce7;
+    color: #15803d;
+  }
+
+  .status-reserved {
+    background-color: #fee2e2;
+    color: #b91c1c;
+  }
+
+  /* --- BUTON STİLLERİ --- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background-color: #4f46e5;
+    color: #ffffff;
+  }
+
+  .btn-primary:hover {
+    background-color: #4338ca;
+  }
+
+  .btn-secondary {
+    background-color: #f1f5f9;
+    color: #334155;
+  }
+
+  .btn-secondary:hover {
+    background-color: #e2e8f0;
+  }
+
+  .action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .btn-edit {
+    background-color: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+  }
+
+  .btn-edit:hover {
+    background-color: #2563eb;
+    color: #ffffff;
+  }
+
+  .btn-delete {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+  }
+
+  .btn-delete:hover {
+    background-color: #dc2626;
+    color: #ffffff;
+  }
+
+  /* --- MODAL PENCERESİ --- */
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.5);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+
+  .modal-backdrop.active {
+    display: flex;
+  }
+
+  .modal-content {
+    background: #ffffff;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 480px;
+    padding: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .close-modal {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #64748b;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+  }
+
+  .form-control {
+    padding: 9px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 13px;
+    outline: none;
+  }
+
+  .form-control:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+  }
+</style>
+
+<body>
+
+  <div class="page-container">
+    
+    <!-- 1. ÜST BAŞLIK & YENİ EKLE BUTONU -->
+    <header class="admin-header">
+      <div class="admin-title-group">
+        <h1>Admin Yönetim Paneli</h1>
+        <p>Sistemdeki ilanları inceleyin, güncelleyin veya yeni ürün ekleyin.</p>
+      </div>
+      <button class="btn btn-primary" id="openAddModalBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        Yeni Mobilya Ekle
+      </button>
+    </header>
+
+    <!-- 2. ÖZET İSTATİSTİKLER (KPI) -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 9v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9"></path><path d="M9 22V12h6v10"></path><path d="M2 10.6L12 2l10 8.6"></path></svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value"><%= furnitures.length %></div>
+          <div class="stat-label">Toplam Mobilya</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background-color: #dcfce7; color: #166534;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value"><%= furnitures.filter((e) => e.reservedBy === null).length %></div>
+          <div class="stat-label">Müsait İlanlar</div>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon" style="background-color: #fef2f2; color: #dc2626;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </div>
+        <div class="stat-info">
+          <div class="stat-value"><%= furnitures.filter((e) => e.reservedBy !== null).length %></div>
+          <div class="stat-label">Rezerve Edilenler</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. MOBİLYA YÖNETİM TABLOSU -->
+    <section class="section-block">
+      <div class="section-title">
+        <h2>Mobilya Listesi</h2>
+      </div>
+
+      <div class="table-card">
+        <div class="table-responsive">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Mobilya</th>
+                <th>Kategori</th>
+                <th>Fiyat</th>
+                <th>Durum</th>
+                <th>Ekleme Tarihi</th>
+                <th style="text-align: right;">İşlemler</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <% for(let i=0; i<furnitures.length; i++){ %>
+                <tr>
+                  <td>
+                    <div class="table-furniture-info">
+                      <img src="<%= furnitures[i].image %>" class="table-thumb" alt="Görsel">
+                      <div>
+                        <span class="furniture-name"><%= furnitures[i].name %></span>
+                        <small style="color: #94a3b8;">ID: <%= furnitures[i]._id.toString() %></small>
+                      </div>
+                    </div>
+                  </td>
+                  <td><span class="category-tag"><%= furnitures[i].category.name %></span></td>
+                  <td><strong><%= furnitures[i].price %> ₺</strong></td>
+                  <td>
+                    <% if(furnitures[i].reservedBy){ %>
+                      <span class="status-tag status-reserved" style="position:static;">Rezerve Edildi</span>
+                    <% }else{ %>
+                      <span class="status-tag status-available" style="position:static;">Müsait</span>
+                    <% } %>
+                  </td>
+                  <td><%= new Date(furnitures[i].dateCreated).toLocaleDateString('tr-TR') %></td>
+                  <td>
+                    <div class="action-buttons" style="justify-content: flex-end;">
+                      <button class="btn btn-icon btn-edit" title="Düzenle" id="openEditModalBtn"
+                        data-id="<%= furnitures[i]._id %>"
+                        data-name="<%= furnitures[i].name %>"
+                        data-category="<%= furnitures[i].category.name %>"
+                        data-price="<%= furnitures[i].price %>"
+                        data-image="<%= furnitures[i].image %>"
+                      >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                      </button>
+                      <button class="btn btn-icon btn-delete" title="Sil" onclick="if(confirm('Bu mobilyayı silmek istediğinize emin misiniz?')) window.location.href='/delete/furniture/<%= furnitures[i]._id %>?_method=DELETE'">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              <% } %>
+
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- 4. MOBİLYA EKLE / DÜZENLE MODALI -->
+  <div class="modal-backdrop" id="furnitureModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Yeni Mobilya Ekle</h3>
+        <button class="close-modal" id="closeModalBtn">&times;</button>
+      </div>
+
+      <form action="/create/furniture" method="POST" style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="form-group">
+          <label for="name">Mobilya Adı</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Örn: Ahşap Kitaplık" required>
+        </div>
+
+        <div class="form-group">
+          <label for="category">Kategori</label>
+          <select id="category" name="category" class="form-control" required>
+            <option id="option" value="" selected disabled>Bir kategori seçiniz</option>
+            <% for(let i=0; i<categories.length; i++) { %>
+            <option value="<%= categories[i]._id %>"><%= categories[i].name %></option>
+            <% } %>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Fiyat (₺)</label>
+          <input type="number" id="price" name="price" class="form-control" placeholder="4500" required>
+        </div>
+
+        <div class="form-group">
+          <label for="image">Görsel URL</label>
+          <input type="url" id="image" name="image" class="form-control" placeholder="https://..." required>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancelModalBtn">İptal</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Modal Aç / Kapat Mantığı
+    const modal = document.getElementById('furnitureModal');
+    const openAddBtn = document.getElementById('openAddModalBtn');
+    const openEdtBtn = document.getElementById('openEditModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const cancelBtn = document.getElementById('cancelModalBtn');
+
+
+    const toggleModal = () => modal.classList.toggle('active');
+
+    openEdtBtn.addEventListener('click', ()=>{
+      toggleModal();
+      const id = openEdtBtn.getAttribute('data-id');
+      const name = openEdtBtn.getAttribute('data-name');
+      const category = openEdtBtn.getAttribute('data-category');
+      const price = openEdtBtn.getAttribute('data-price');
+      const image = openEdtBtn.getAttribute('data-image');
+
+      document.getElementById('modalTitle').textContent = 'Mobilyayı Düzenle';
+
+      const option = document.getElementById('option')
+      option.value = category;
+      option.textContent = category;
+      
+      document.getElementById('name').value = name;
+      document.getElementById('price').value = price;
+      document.getElementById('image').value = image;
+
+      const form = document.querySelector('#furnitureModal form');
+      form.action = `/update/furniture/${id}?_method=PUT`;
+    })
+
+    openAddBtn.addEventListener('click', ()=> {
+      toggleModal();
+
+      const form = document.querySelector('#furnitureModal form');
+
+      form.reset();
+      form.action = '/create/furniture'
+
+      document.getElementById('modalTitle').textContent = 'Yeni Mobilya Ekle';
+
+      const option = document.getElementById('option')
+      option.value = "";
+      option.textContent = "Bir kategori seçiniz";
+    });
+
+    closeBtn.addEventListener('click', toggleModal);
+    cancelBtn.addEventListener('click', toggleModal);
+  </script>
+
+</body>
+</html>

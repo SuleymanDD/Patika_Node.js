@@ -1,7 +1,7 @@
 const User = require("../models/User");
 
 exports.getHomePage = (req, res) => {
-    res.render("index", { pageName: "home", userID: req.session.userID });
+    res.render("index", { pageName: "home", userID: req.session.userID,  message: req.flash("homeMessage")[0]});
 }
 
 exports.getAboutPage = (req, res) => {

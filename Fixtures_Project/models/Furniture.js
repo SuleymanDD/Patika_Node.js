@@ -29,6 +29,6 @@ const FurnitureSchema = new Schema({
     }
 })
 
-const Furniture = mongoose.model("Furniture", FurnitureSchema);
+const Furniture = mongoose.model("furniture", FurnitureSchema);
 
 module.exports = Furniture

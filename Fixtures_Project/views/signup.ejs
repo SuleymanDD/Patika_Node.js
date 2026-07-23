@@ -343,68 +343,6 @@
                 gap: 0;
             }
         }
-
-        /* Genel Bildirim Kutusu Stili */
-        .alert-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 1.4;
-            border: 1px solid transparent;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        .alert-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        
-        .alert-close {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: inherit;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-            line-height: 1;
-        }
-
-        .alert-close:hover {
-            opacity: 1;
-        }
-
-        .alert-box.error {
-            background-color: #FDF2F2;
-            color: #C81E1E;
-            border-color: #FDE8E8;
-        }
-
-        .alert-box.error .alert-icon::before {
-            content: "\f06a";
-            /* FontAwesome hata ikonu */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-        }
-
-        /* Giriş Efekti */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
     </style>
 
     <body>
@@ -436,7 +374,7 @@
                         </div>
 
                         <% if (message.length) { %>
-                            <div class="alert-box error">
+                            <div class="alert-box error" id="flashAlert">
                                 <div class="alert-content">
                                     <i class="alert-icon"></i>
                                     <p>

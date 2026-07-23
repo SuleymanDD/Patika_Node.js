@@ -118,97 +118,6 @@
             text-align: center;
         }
 
-        /* Genel Bildirim Kutusu Stili */
-        .alert-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 1.4;
-            border: 1px solid transparent;
-            animation: fadeIn 0.3s ease-in-out;
-        }
-
-        .alert-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        /* Kapatma Butonu (X) */
-        .alert-close {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: inherit;
-            opacity: 0.6;
-            transition: opacity 0.2s;
-            line-height: 1;
-        }
-
-        .alert-close:hover {
-            opacity: 1;
-        }
-
-        .alert-box.success {
-            background-color: #EBF7EE;
-            color: #2E7D32;
-            border-color: #C8E6C9;
-        }
-
-        .alert-box.success .alert-icon::before {
-            content: "\f058";
-            /* FontAwesome onay ikonu */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-        }
-
-        /* 2. Hata Mesajı (Error) */
-        .alert-box.error {
-            background-color: #FDF2F2;
-            color: #C81E1E;
-            border-color: #FDE8E8;
-        }
-
-        .alert-box.error .alert-icon::before {
-            content: "\f06a";
-            /* FontAwesome hata ikonu */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-        }
-
-        /* 3. Bilgi / Uyarı Mesajı (Info) */
-        .alert-box.info {
-            background-color: #FEF9E7;
-            color: #B58105;
-            border-color: #FEF3D1;
-        }
-
-        .alert-box.info .alert-icon::before {
-            content: "\f05a";
-            /* FontAwesome bilgi ikonu */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-        }
-
-        /* Giriş Efekti */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .form-group {
             margin-bottom: 20px;
         }
@@ -402,7 +311,7 @@
                         </div>
 
                         <% if (message) { %>
-                            <div class="alert-box <%= message.type %>">
+                            <div class="alert-box <%= message.type %>" id="flashAlert">
                                 <div class="alert-content">
                                     <i class="alert-icon"></i>
                                     <p>
